@@ -1,24 +1,28 @@
-import requests
+from app.utils.Requester import Requester
 
-def get_person_info(firstname, lastname):
+def get_person_info(firstname: str, lastname: str) -> tuple:
+
+        # Initialisation des variables de sortie
         output_gender = {"value": None, "probability": None}
         output_country = None
 
-        try:
-            x = requests.get(f"https://api.genderize.io?name={firstname.lower()}")
-            x.raise_for_status()
-            parsed = x.json()
+        # Nationalize
+        params = {
+            "name": f"{firstname.lower()}"
+        }
+        response = Requester(url=f"https://api.genderize.io", params=params).get()
+        if response and response.status_code == 200:
+            parsed = response.json()
             output_gender["value"] = parsed['gender']
             output_gender["probability"] = parsed['probability']
-        except requests.exceptions.RequestException as e:
-            pass
 
-        try:
-            x = requests.get(f"https://api.nationalize.io?name={firstname.lower()}")
-            x.raise_for_status()
-            parsed = x.json()
+        # Genderize
+        params = {
+            "name": f"{firstname.lower()}"
+        }
+        response = Requester(url=f"https://api.nationalize.io", params=params).get()
+        if response and response.status_code == 200:
+            parsed = response.json()
             output_country = parsed['country']
-        except requests.exceptions.RequestException as e:
-            pass
 
         return output_gender, output_country

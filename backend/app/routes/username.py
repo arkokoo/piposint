@@ -3,7 +3,7 @@ from app.services.username import get_blackbird
 
 username = Blueprint('username', __name__)
 
-@username.route('api/username',methods=['GET'])
+@username.route('/api/username',methods=['GET'])
 def get_username() :
     username = request.args.get('value')
 

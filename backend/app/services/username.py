@@ -1,9 +1,11 @@
-from app.utils.light_holehe import run_light_blackbird
-import trio
+from app.utils.light_blackbird import run_light_blackbird
+import asyncio
+
+loop = asyncio.get_event_loop()
 
 def get_blackbird(username) :
     try:
-        userJson = trio.run(run_light_blackbird, username)
+        result = loop.run_until_complete(run_light_blackbird(username))
     except Exception as e:
         pass
-    return userJson
+    return result

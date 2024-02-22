@@ -6,7 +6,7 @@ import time
 import warnings
 from datetime import datetime
 import base64
-from app.utils.Requester import Requester
+from app.utils.Requester import Requester, get_user_agent
 import aiohttp
 from bs4 import BeautifulSoup
 import requests
@@ -46,7 +46,7 @@ async def run_light_blackbird(username):
 async def makeRequest(session, u, username):
     url = u["url"].format(username=username)
     jsonBody = None
-    useragent = Requester.get_user_agent()
+    useragent = get_user_agent()
     headers = {"User-Agent": useragent}
     metadata = []
     if "headers" in u:

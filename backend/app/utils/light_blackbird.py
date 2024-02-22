@@ -4,64 +4,46 @@ import os
 import sys
 import time
 import warnings
-# import csv
 from datetime import datetime
 import base64
-import Requester
+from app.utils.Requester import Requester
 import aiohttp
 from bs4 import BeautifulSoup
+import requests
 
-
-req = Requester.get(url=f"https://api.github.com/repos/p1ngul1n0/blackbird/contents/data.json")
-if req and req.status_code == 200:
-    req = req.json()
-    content = base64.b64decode(req['content'])
-    file = content.decode("utf8")
-searchData = json.load(file)
-currentOs = sys.platform
-path = os.path.dirname(__file__)
+req = "https://raw.githubusercontent.com/p1ngul1n0/blackbird/master/data.json"
+response = requests.get(url=req)
+searchData = response.json()
 warnings.filterwarnings("ignore")
 
 #useragents = open(os.path.join(os.path.abspath(__file__),'..','useragent.txt'),'w').read().splitlines()
 
-
-async def findUsername(username, interfaceType, flag_csv=False):
-    start_time = time.time()
+async def run_light_blackbird(username):
     timeout = aiohttp.ClientTimeout(total=20)
 
     async with aiohttp.ClientSession(timeout=timeout) as session:
         tasks = []
         for u in searchData["sites"]:
             task = asyncio.ensure_future(
-                makeRequest(session, u, username, interfaceType)
+                makeRequest(session, u, username)
             )
             tasks.append(task)
 
         results = await asyncio.gather(*tasks)
-        now = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
-        executionTime = round(time.time() - start_time, 1)
         userJson = {
             "search-params": {
                 "username": username,
                 "sites-number": len(searchData["sites"]),
-                "date": now,
-                "execution-time": executionTime,
             },
             "sites": [],
         }
+        
         for x in results:
             userJson["sites"].append(x)
-        # pathSave = os.path.join(path, "results", username + ".json")
-        # userFile = open(pathSave, "w")
-        # json.dump(userJson, userFile, indent=4, sort_keys=True)
-
-        # if flag_csv:
-        #     exportCsv(userJson)
 
         return userJson
 
-
-async def makeRequest(session, u, username, interfaceType):
+async def makeRequest(session, u, username):
     url = u["url"].format(username=username)
     jsonBody = None
     useragent = Requester.get_user_agent()
@@ -125,106 +107,3 @@ async def makeRequest(session, u, username, interfaceType):
             "error-message": repr(e),
             "metadata": metadata,
         }
-
-# def exportCsv(userJson):
-#     pathSave = os.path.join(
-#         path, "results", userJson["search-params"]["username"] + ".csv"
-#     )
-#     with open(pathSave, "w", newline="", encoding="utf-8") as file:
-#         writer = csv.writer(file)
-#         writer.writerow(["ID", "App", "URL", "response-status", "metadata", "result"])
-
-#         for u in userJson["sites"]:
-#             writer.writerow(
-#                 [
-#                     u["id"],
-#                     u["app"],
-#                     u["url"],
-#                     u["response-status"],
-#                     json.dumps(u["metadata"]),
-#                     u["status"],
-#                 ]
-#             )
-#     return True
-
-
-async def run_light_blacbird(username : str) :
-        try:
-            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-        except:
-            pass
-
-        asyncio.run(findUsername(username, "CLI"))
-
-
-# if __name__ == "__main__":
-    # init()
-
-    # parser = argparse.ArgumentParser(
-    #     description="An OSINT tool to search for accounts by username in social networks."
-    # )
-    # parser.add_argument(
-    #     "-u",
-    #     action="store",
-    #     dest="username",
-    #     required=False,
-    #     help="The target username.",
-    # )
-    # parser.add_argument(
-    #     "--list-sites",
-    #     action="store_true",
-    #     dest="list",
-    #     required=False,
-    #     help="List all sites currently supported.",
-    # )
-    # parser.add_argument(
-    #     "-f", action="store", dest="file", required=False, help="Read results file."
-    # )
-    # parser.add_argument(
-    #     "--web", action="store_true", dest="web", required=False, help="Run webserver."
-    # )
-    # parser.add_argument(
-    #     "--proxy",
-    #     action="store",
-    #     dest="proxy",
-    #     required=False,
-    #     help="Proxy to send requests through.E.g: --proxy http://127.0.0.1:8080 ",
-    # )
-    # parser.add_argument(
-    #     "--show-all",
-    #     action="store_true",
-    #     dest="showAll",
-    #     required=False,
-    #     help="Show all results.",
-    # )
-    # parser.add_argument(
-    #     "--csv",
-    #     action="store_true",
-    #     dest="csv",
-    #     required=False,
-    #     help="Export results to CSV file.",
-    # )
-    # arguments = parser.parse_args()
-
-    # if arguments.proxy:
-    #     proxy = arguments.proxy
-    # showAll = False
-    # if arguments.showAll:
-    #     showAll = arguments.showAll
-
-    # if arguments.web:
-    #     print("[!] Started WebServer on http://127.0.0.1:9797/")
-    #     command = subprocess.run((sys.executable, "webserver.py"))
-    #     command.check_returncode()
-
-    # if arguments.username:
-    #     try:
-    #         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    #     except:
-    #         pass
-    #     interfaceType = "CLI"
-    #     asyncio.run(findUsername(arguments.username, interfaceType, arguments.csv))
-    # elif arguments.list:
-    #     list_sites()
-    # elif arguments.file:
-    #     read_results(arguments.file)

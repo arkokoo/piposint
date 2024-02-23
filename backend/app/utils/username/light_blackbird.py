@@ -1,12 +1,7 @@
 import asyncio
 import json
-import os
-import sys
-import time
 import warnings
-from datetime import datetime
-import base64
-from app.utils.Requester import Requester, get_user_agent
+from app.utils.Requester import get_user_agent
 import aiohttp
 from bs4 import BeautifulSoup
 import requests
@@ -15,8 +10,6 @@ req = "https://raw.githubusercontent.com/p1ngul1n0/blackbird/master/data.json"
 response = requests.get(url=req)
 searchData = response.json()
 warnings.filterwarnings("ignore")
-
-#useragents = open(os.path.join(os.path.abspath(__file__),'..','useragent.txt'),'w').read().splitlines()
 
 async def run_light_blackbird(username):
     timeout = aiohttp.ClientTimeout(total=20)
@@ -89,21 +82,17 @@ async def makeRequest(session, u, username):
                 }
             else:
                 return {
-                    "id": u["id"],
                     "app": u["app"],
                     "url": url,
                     "response-status": f"{response.status} {response.reason}",
                     "status": "NOT FOUND",
-                    "error-message": None,
                     "metadata": metadata,
                 }
     except Exception as e:
         return {
-            "id": u["id"],
             "app": u["app"],
             "url": url,
             "response-status": None,
             "status": "ERROR",
-            "error-message": repr(e),
             "metadata": metadata,
         }

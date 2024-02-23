@@ -33,13 +33,15 @@ async def run_light_blackbird(username):
         userJson = {
             "search-params": {
                 "username": username,
-                "sites-number": len(searchData["sites"]),
             },
             "sites": [],
         }
         
         for x in results:
-            userJson["sites"].append(x)
+            if x["response-status"] == "200 OK" and x["status"] == "FOUND" :
+                del x["status"]
+                del x["response-status"]
+                userJson["sites"].append(x)
 
         return userJson
 
@@ -79,12 +81,10 @@ async def makeRequest(session, u, username):
                         except Exception as e:
                             pass
                 return {
-                    "id": u["id"],
                     "app": u["app"],
                     "url": url,
                     "response-status": f"{response.status} {response.reason}",
                     "status": "FOUND",
-                    "error-message": None,
                     "metadata": metadata,
                 }
             else:

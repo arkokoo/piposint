@@ -17,7 +17,6 @@ Le projet est dirigé par :
     - `routes` : Routes de l'API.
     - `services` : Fonctions spécifiques aux routes.
     - `utils` : Fonctions générales.
-    - `__init__.py` : Fonction de création de l'API. (Appels des Blueprints)
   - `tests` : Tests des routes.
 - `frontend` : Code du frontend.
 - `docs` : Documentations du projet.

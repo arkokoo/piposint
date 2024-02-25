@@ -4,9 +4,9 @@ import asyncio
 loop = asyncio.get_event_loop()
 
 def get_blackbird(username):
-    result = {}
+    output_dict = {}
     try:
-        result = loop.run_until_complete(run_light_blackbird(username))
+        output_dict = loop.run_until_complete(run_light_blackbird(username))
     except Exception as e:
         pass
-    return result
+    return output_dict

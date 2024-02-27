@@ -1,6 +1,5 @@
-import os
+from app.utils.tools import get_countries, get_country
 import phonenumbers
-import json
 from phonenumbers import carrier
 
 async def lookup(phone_number):
@@ -9,7 +8,8 @@ async def lookup(phone_number):
         "is_valid_number": None,
         "operator": None,
         "line_type": None,
-        "countries": []
+        "country": None,
+        "country_emoji": None
     }
     parsed = phonenumbers.parse(phone_number)
 
@@ -26,23 +26,8 @@ async def lookup(phone_number):
     elif line == phonenumbers.PhoneNumberType.MOBILE:
         output["line_type"] = "Mobile"
 
-    file_path = os.path.join(os.path.dirname(__file__), "country_codes.json")
-    with open(file_path, "r") as file:
-        read = json.load(file)
-
-    count_countries = 0
-
-    for country, code in read.items():
-        count_countries += 1 
-
-        if phone_number.startswith(code):
-            output["countries"].append(country)
-
-            if count_countries == 153:
-                break
-            else:
-                continue
-        else:
-            continue
+    country_code = phonenumbers.region_code_for_number(parsed)
+    countries = get_countries()
+    output["country"], output["country_emoji"] = get_country(countries, country_code)
 
     return output

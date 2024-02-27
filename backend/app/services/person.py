@@ -1,4 +1,5 @@
 from app.utils.Requester import Requester
+from app.utils.tools import get_countries, get_country
 
 def get_person_info(firstname: str, lastname: str) -> tuple:
 
@@ -24,5 +25,11 @@ def get_person_info(firstname: str, lastname: str) -> tuple:
         if response and response.status_code == 200:
             parsed = response.json()
             output_country = parsed['country']
+
+            countries = get_countries()
+
+            for country in output_country:
+                country['name'], country['flag'] = get_country(countries, country['country_id'])
+                del country['country_id']
 
         return output_gender, output_country

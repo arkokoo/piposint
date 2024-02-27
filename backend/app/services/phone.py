@@ -10,7 +10,8 @@ async def get_phone_info(phone_number):
         "is_possible_number": None,
         "is_valid_number": None,
         "operator": None,
-        "countries": [],
+        "country": None,
+        "country_emoji": None,
         "line_type": None,
         "reputation": {
             "tellows": {

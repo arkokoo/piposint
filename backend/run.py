@@ -3,6 +3,7 @@ from app.routes.person import person
 from app.routes.email import email
 from app.routes.phone import phone
 from app.routes.username import username
+from app.routes.ip import ip
 
 def create_app():
     app = Flask(__name__)
@@ -10,6 +11,7 @@ def create_app():
     app.register_blueprint(email)
     app.register_blueprint(phone)
     app.register_blueprint(username)
+    app.register_blueprint(ip)
     return app
 
 app = create_app()

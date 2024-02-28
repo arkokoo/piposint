@@ -12,7 +12,9 @@ ip = Blueprint('ip',__name__)
 def get_ip_information() :
     information_json = {}
     search_value = request.args.get('value')
-    if search_value is None and bool(re.fullmatch(REGEX_IPV4,search_value)) is False and bool(re.fullmatch(REGEX_IPV6,search_value)) is False and bool(re.fullmatch(REGEX_DOMAIN,search_value)) is False :
+    if search_value is None :
+        abort(400)
+    if bool(re.fullmatch(REGEX_IPV4,search_value)) is False and bool(re.fullmatch(REGEX_IPV6,search_value)) is False and bool(re.fullmatch(REGEX_DOMAIN,search_value)) is False :
         abort(400)
 
     information_json = get_ip(search_value)

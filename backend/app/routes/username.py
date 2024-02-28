@@ -7,7 +7,7 @@ username = Blueprint('username', __name__)
 def get_username() :
     username = request.args.get('value')
 
-    if username is None :
+    if username is None or username is "" :
         abort(400)
 
     userJson = get_blackbird(username)

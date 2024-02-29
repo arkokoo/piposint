@@ -5,6 +5,7 @@ from app.routes.email import email
 from app.routes.phone import phone
 from app.routes.username import username
 from app.routes.ip import ip
+from app.routes.domain import domain
 from app.utils.vars import *
 
 def create_app():
@@ -14,6 +15,7 @@ def create_app():
     app.register_blueprint(phone)
     app.register_blueprint(username)
     app.register_blueprint(ip)
+    app.register_blueprint(domain)
     return app
 
 def get_database():

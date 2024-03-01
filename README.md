@@ -1,5 +1,3 @@
----
-
 Ceci est le dépôt Gitlab de notre projet de BSI : PIPOSINT, conduit durant l'année 2023-2024.
 Le projet est dirigé par :
 
@@ -9,7 +7,6 @@ Le projet est dirigé par :
 
 # Le front
 
----
 Ce frontend est développé Vue 3 et Vite.
 
 Extensions recommandées pour vscode :

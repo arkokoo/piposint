@@ -16,6 +16,7 @@ Extensions recommandées pour vscode :
 ## Le setup
 
 ```sh
+cd frontend
 npm install
 ```
 

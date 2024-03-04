@@ -13,6 +13,8 @@ Extensions recommandées pour vscode :
 - [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (désactivé Vetur si jamais)
 - [Volar - TypesScript](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin)
 
+Le dossier "screenshot" contient un aperçu rapide du site.
+
 ## Le setup
 
 ```sh

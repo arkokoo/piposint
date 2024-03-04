@@ -13,3 +13,7 @@ def is_ip_address(value) :
         return False
     else :
         return True
+
+def is_domain(value) :
+    REGEX_DOMAIN = r'[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    return bool(re.fullmatch(REGEX_DOMAIN,value))

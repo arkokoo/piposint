@@ -11,9 +11,16 @@ def get_person():
     if firstname is None or lastname is None:
         abort(400)
     
-    output_gender, output_country = get_person_info(firstname, lastname)
+    person_dict = {
+        "firstname": firstname,
+        "lastname": lastname,
+        "gender": None,
+        "country": None
+    }
 
-    return jsonify({"firstname": firstname, "lastname": lastname, "gender": output_gender, "country": output_country})
+    person_dict["gender"], person_dict["country"] = get_person_info(firstname, lastname)
+
+    return jsonify(person_dict)
 
 @person.errorhandler(400)
 def bad_request(error):

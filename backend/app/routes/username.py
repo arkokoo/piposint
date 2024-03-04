@@ -10,8 +10,9 @@ def get_username() :
     if username is None or username is "" :
         abort(400)
 
-    userJson = get_blackbird(username)
-    return jsonify(userJson)
+    user_dict = {}
+    user_dict = get_blackbird(username)
+    return jsonify(user_dict)
 
 @username.errorhandler(400)
 def bad_request(error):

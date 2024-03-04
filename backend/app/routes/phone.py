@@ -7,12 +7,13 @@ phone = Blueprint('phone', __name__)
 @phone.route('/api/phone', methods=['GET'])
 def get_phone():
     phone_number = request.args.get('value')
-    phone_dict = {
-        "phone_number": phone_number
-    }
 
     if phone_number is None:
         abort(400)
+
+    phone_dict = {
+        "phone_number": phone_number
+    }
 
     if not phone_number.startswith('+'):
         phone_number = '+' + phone_number

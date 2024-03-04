@@ -1,0 +1,19 @@
+services:
+  back:
+    build:
+      context: .
+      dockerfile: Dockerfile.back
+    container_name: piposint_back
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+    links:
+      - db
+    env_file:
+      - .env
+  db:
+    image: mongo:latest
+    container_name: piposint_db
+    env_file:
+      - .env

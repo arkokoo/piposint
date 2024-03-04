@@ -9,14 +9,23 @@ Le projet est dirigé par :
 
 ## Arborescence
 
+- `docker-compose.yml` : Installe l'environnement complet de l'outil
+- `Dockerfile.back` : Dockerfile du backend
+- `.env` : Fichier d'inventaire (à configurer avant lancement des conteneurs)
+- `backend` : Code du backend
+  - `run.py` : Fonction principale du backend
+  - `app` : Répertoire de l'API
+    - `models` : Structures des objets en sortie (requêtes à la BDD interne)
+    - `routes` : Routes de l'API
+    - `services` : Fonctions spécifiques aux routes
+    - `utils` : Fonctions générales
+  - `tests` : Tests des routes
+- `frontend` : Code du frontend
+- `docs` : Documentations du projet
 
-- `backend` : Code du backend.
-  - `run.py` : Fonction principale du backend. 
-  - `app` : Répertoire de l'API.
-    - `models` : Structures des objets en sortie. (requêtes à la BDD interne)
-    - `routes` : Routes de l'API.
-    - `services` : Fonctions spécifiques aux routes.
-    - `utils` : Fonctions générales.
-  - `tests` : Tests des routes.
-- `frontend` : Code du frontend.
-- `docs` : Documentations du projet.
+## Installation
+
+Création des conteneurs :
+```bash
+sudo docker-compose up -d --build
+```

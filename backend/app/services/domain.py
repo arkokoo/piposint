@@ -1,5 +1,5 @@
 from app.utils.Requester import Requester
-from app.utils.vars import *
+from app.utils.vars import HUNTER_API_KEY
 
 def hunter(domain) :
     json_data = {}

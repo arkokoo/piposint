@@ -12,22 +12,23 @@
           <p>pipOSINT</p>
       </a>
       <ul v-show="!mobile" class="navigation">
-          <li><router-link :to="{ name: 'Home' }" class="nav-links"><button><span>Accueil</span></button></router-link></li>
-          <li><router-link :to="{ name: 'About' }" class="nav-links"><button><span>À propos</span></button></router-link></li>
-          <li><router-link :to="{ name: '' }" class="nav-links"><button><span>Gitlab</span></button></router-link></li>
-          <li><router-link :to="{ name: '' }" class="nav-links"><button><span>Tuto</span></button></router-link></li>
-        </ul>
-      <i class="fas fa-moon"></i>
+        <li><router-link :to="{ name: 'Home' }" ><button>Accueil</button></router-link></li>
+        <li><router-link :to="{ name: 'About' }" ><button>À propos</button></router-link></li>
+        <li><a href="https://gitlab.com/bsi-dls/piposint" target="_blank"><button>Gitlab</button></a></li>
+        <li><router-link :to="{ name: 'Tutorials' }" ><button>Tuto</button></router-link></li>
+      </ul>
+      <i v-show="!mobile" class="fas fa-moon"></i>
+      <i v-show="mobile" @click="toggleMobileNavigation" class="fas fa-bars"></i>
       <transition name="mobile-nav">
-          <ul v-show="mobileNav" class="mobile-navigation">
-            <li><router-link :to="{ name: 'Home' }" class="nav-links"><button><span>Accueil</span></button></router-link></li>
-            <li><router-link :to="{ name: '' }" class="nav-links"><button><span>À propos</span></button></router-link></li>
-            <li><router-link :to="{ name: '' }" class="nav-links"><button><span>Gitlab</span></button></router-link></li>
-            <li><router-link :to="{ name: '' }" class="nav-links"><button><span>Tuto</span></button></router-link></li>
-          </ul>
+        <ul v-show="mobileNav" class="mobile-navigation">
+          <li><router-link :to="{ name: 'Home' }" ><button>Accueil</button></router-link></li>
+          <li><router-link :to="{ name: 'About' }" ><button>À propos</button></router-link></li>
+          <li><a href="https://gitlab.com/bsi-dls/piposint" target="_blank"><button>Gitlab</button></a></li>
+          <li><router-link :to="{ name: 'Tutorials' }" ><button>Tuto</button></router-link></li>
+          <li><i class="fas fa-moon" style="padding: 0;"></i></li>
+        </ul>
       </transition>
     </nav>
-
   </header>
 </template>
 
@@ -54,7 +55,7 @@ export default {
       },
       checkScreen() {
         this.windowWidth = window.innerWidth;
-        if (this.windowWidth <= 768) {
+        if (this.windowWidth <= 826) {
           this.mobile = true;
           return;
         } else {
@@ -86,18 +87,37 @@ export default {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 12px;
+    padding-right: 12px;
+
+    // mobile version
+    .mobile-navigation {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      position: fixed;
+      background-color: #f7f9f4;
+      width: 100%;
+      max-width: 250px;
+      height: 100%;
+      margin-top: 0;
+      top: 0;
+      left: 0;
+      border-right: solid 1px rgba($color: #000000, $alpha: 0.1);
+    } 
   }
   li{
-    padding: 0.5em;
+  padding: 0.5em;
   }
   i{
-    padding-left: 105px;
+    padding-left: 100px;
+    padding-right: 25px;
     font-size: 25px;
     align-self: center;
     cursor: pointer;
   }
   gap-2 {
-  gap: 0.5rem;
+    gap: 0.5rem;
   }
   p{
     font-size: 1.25rem;
@@ -111,8 +131,8 @@ export default {
   }
 }
 .sides {
-  min-width: 130px;
-  max-width: 130px;
+  min-width: 150px;
+  max-width: 150px;
   display: flex;
   align-self: center;
 }
@@ -121,6 +141,7 @@ ul {
   padding-left: 0;
   list-style-type: none;
 }
+
 // Les boutons des liens de navigation
 button {
  appearance: none;

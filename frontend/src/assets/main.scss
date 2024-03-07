@@ -1,7 +1,8 @@
 @import url(./base.scss);
+@import url(./background.scss);
 
 * {
-    font-family: 'Space Mono', monospace; // default font
+    font-family: 'Space Mono', monospace; // default font, si jamais on oublie
 }
 
 #app {

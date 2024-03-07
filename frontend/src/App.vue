@@ -6,12 +6,9 @@ import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <div class="body">
-    <RouterView />
-    <TheNavbar />
-  </div>
+  <RouterView />
+  <TheNavbar />
 </template>
-
 <script>
 
 export default {

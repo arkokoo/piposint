@@ -1,6 +1,6 @@
 <template>
-  <section class="container">
 
+  <section v-show="!mobile" class="container" style="z-index: 10;">
     <div class="sub-container">
       <span class="title">Bienvenue sur pipOSINT
         <p class="subtitle">Votre boîte à outils d'OSINT.</p>
@@ -11,60 +11,108 @@
         </svg>
       </button>
     </div>
-
-    <div class="sub-container2">
-      <span class="text">En bref :</span>
-      <p>Le but de pipOSINT est de rassembler un maximum 
-        d'outils d'OSINT afin de tout avoir en un endroit et ainsi éviter une perte de temps considérable.<br><br>
-        Il est aussi possible de porter cette version web dans un docker afin de self-host</p>
-    </div>
   </section>
+
+  <transition name="mobile-nav">
+    <section v-show="mobile" class="mobile-container" style="z-index: 10;">
+      <div class="sub-mobile-container"> 
+        <span class="title">Bienvenue sur pipOSINT
+          <p class="subtitle">Votre boîte à outils d'OSINT.</p>
+        </span>
+        <button class="button">Let's go !
+          <svg fill="currentColor" viewBox="0 0 24 24" class="icon">
+            <path clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fill-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+    </section>
+  </transition>
+  <div class="animated-background">
+      <ul>
+        <li>&#x2B22;</li>
+        <li>&#x2B22;</li>
+        <li>&#x2B22;</li>
+        <li>&#x2B22;</li>
+        <li>&#x2B22;</li>
+        <li>&#x2B22;</li>
+        <li>&#x2B22;</li>
+        <li>&#x2B22;</li>
+      </ul>
+    </div>
 </template>  
 
 <script>
-export default {};
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+export default {
+    name: 'Home',
+    data() {
+        return {
+            scrollPosition: null,
+            mobile: null,
+            mobileNav: null,
+            windowWidth: null,
+        };
+    },
+    created () {
+      window.addEventListener('resize', this.checkScreen);
+      this.checkScreen();
+    },
+    methods: {
+      toggleMobileNavigation() {
+        this.mobileNav = !this.mobileNav;
+      },
+      checkScreen() {
+        this.windowWidth = window.innerWidth;
+        if (this.windowWidth <= 826) {
+          this.mobile = true;
+          return;
+        } else {
+          this.mobile = false;
+          this.mobileNav = false;
+          return;
+        }
+      },
+    },
+    components: { FontAwesomeIcon }
+};
 </script>
 
 <style lang="scss" scoped>
-.title {
-  max-width: fit-content;
-  padding-bottom: 1rem;
-  font-size: 5rem;
-  font-weight: 600;
-  font-family: 'Space Mono', monospace;
-  .subtitle{
-    font-size: 1.5rem;
-    font-weight: 400;
-    font-family: 'Space Mono', monospace;
-  }
-}
-.text {
-  font-size: 2rem;
-  font-weight: 400;
-  font-family: 'Space Mono', monospace;
-}
+@import url(./../assets/main.scss);
+
 .container {
-  display: flex;
-  justify-content: space-between;
+  padding-top: 25rem;
+  align-items: center;
+  padding-bottom: 20rem;
   .sub-container {
-    max-width: 600px;
     display: flex;
     flex-direction: column;
-    padding: 1em;
-  }
-  .sub-container2 {
-    max-height: 350px;
-    align-self: center;
-    display: flex;
-    flex-direction: column;
-    padding-left: 4rem;
-    padding-top: 4rem;
+    align-items: center;
+    text-align: center;
+    .button {
+      width: 20rem;
+      font-size: 20px;
+    }
   }
 }
-section {
-  padding-top: 13rem; // obligatoire pour le moment
-  padding-bottom: 6rem;
-  border-bottom: solid 1px rgba($color: #000000, $alpha: 0.1);
+// mobile version
+.mobile-container {
+  padding-top : 20rem;
+  padding-bottom: 15rem;
+  .sub-mobile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    .title {
+      font-size: 4rem;
+      padding-bottom: 0;
+    }
+    .button {
+      align-self: center;
+    }
+  }
 }
 // le bouton let's go
 .button {

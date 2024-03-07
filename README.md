@@ -9,9 +9,8 @@ Le projet est dirigé par :
 
 Ce frontend est développé Vue 3 et Vite.
 
-Extensions recommandées pour vscode :
+Extension(s) recommandée(s) pour vscode :
 - [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (désactivé Vetur si jamais)
-- [Volar - TypesScript](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin)
 
 Le dossier "screenshot" contient un aperçu rapide du site.
 

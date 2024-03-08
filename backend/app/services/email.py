@@ -1,5 +1,5 @@
-import trio
 from app.utils.email.light_holehe import run_light_holehe
+import trio
 
 def get_holehe(email):
     domain_values = []

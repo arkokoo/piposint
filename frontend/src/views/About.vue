@@ -31,7 +31,7 @@
     <div class="sub-container" style="padding-right: 0.5rem;">
       <span class="subtitle">pipOSINT, c'est quoi ?</span>
       <p>Dans l'ensemble c'est assez simple, c'est une boîte à outils. <br><br>
-        On voulait faire un peu comme Aperisolv, un endroit avec pleins d'outils qui sont automatisés.
+        On voulait faire un peu comme Aperi'Solve, un endroit avec pleins d'outils qui sont automatisés.
         Une donnée en entrée et une multitude de sorties, en revanche ce n'est pas facile en OSINT. <br><br>
         Donc on a opté pour plus simple, un endroit où on peut choisir son outil et l'utiliser sans trop de complications.</p>
     </div>
@@ -47,19 +47,14 @@
   <section class="container" style="padding-top: 5rem;">
     <div class="title">Mentions Légales</div>
     <div class="sub-container" style="padding-right: 0.5rem;">
+      <!-- <font-awesome-icon :icon="['fas', 'scale-balanced']" height="300px"/> marche pas bien :/ -->
+    </div>
+    <div class="sub-container" style="padding-left: 0.5rem;">
       <span class="subtitle">Conditions d'utilisation</span>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
         dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
         sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-    </div>
-    <div class="sub-container" style="padding-left: 0.5rem;">
-      <span class="subtitle">Politique de confidentialité </span>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-         dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-          sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
     </div>
   </section>

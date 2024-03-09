@@ -1,12 +1,6 @@
 @import url(./base.scss);
 @import url(./background.scss);
 
-* {
-    font-family: 'Space Mono', monospace; // default font, si jamais on oublie
-    font-size: 16px; // default font size, si jamais on oublie
-    font-weight: 200; // default font weight, si jamais on oublie
-}
-
 #app {
     background-color: #f7f9f4;
     width: 100%;

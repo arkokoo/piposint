@@ -1,6 +1,7 @@
-import asyncio
 from flask import Blueprint, abort, request, jsonify
 from app.services.phone import get_phone_info
+from app.utils.database import Database
+import asyncio
 
 phone = Blueprint('phone', __name__)
 
@@ -8,7 +9,7 @@ phone = Blueprint('phone', __name__)
 def get_phone():
     phone_number = request.args.get('value')
 
-    if phone_number is None:
+    if phone_number == None:
         abort(400)
 
     phone_dict = {
@@ -20,6 +21,7 @@ def get_phone():
 
     output_phone = asyncio.run(get_phone_info(phone_number))
     phone_dict.update(output_phone)
+    Database.add_history_element(phone_dict, "phone", [phone_number])
     return jsonify(phone_dict)
 
 @phone.errorhandler(400)

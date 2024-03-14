@@ -1,5 +1,6 @@
 from flask import Blueprint, abort, request, jsonify
 from app.services.person import get_person_info
+from app.utils.database import Database
 
 person = Blueprint('person', __name__)
 
@@ -8,7 +9,7 @@ def get_person():
     firstname = request.args.get('firstname')
     lastname = request.args.get('lastname')
 
-    if firstname is None or lastname is None:
+    if firstname == None or lastname == None:
         abort(400)
     
     person_dict = {
@@ -19,7 +20,7 @@ def get_person():
     }
 
     person_dict["gender"], person_dict["country"] = get_person_info(firstname, lastname)
-
+    Database.add_history_element(person_dict, "person", [firstname, lastname])
     return jsonify(person_dict)
 
 @person.errorhandler(400)

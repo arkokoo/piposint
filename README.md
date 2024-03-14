@@ -15,7 +15,6 @@ Le projet est dirigé par :
 - `backend` : Code du backend
   - `run.py` : Fonction principale du backend
   - `app` : Répertoire de l'API
-    - `models` : Structures des objets en sortie (requêtes à la BDD interne)
     - `routes` : Routes de l'API
     - `services` : Fonctions spécifiques aux routes
     - `utils` : Fonctions générales

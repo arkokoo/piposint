@@ -1,7 +1,7 @@
 from flask import Blueprint, abort, request, jsonify
 from app.services.email import get_holehe
 from app.utils.regex import is_email
-from app.utils.database import Database
+from app.utils.History import History
 
 email = Blueprint('email', __name__)
 
@@ -15,7 +15,8 @@ def get_email():
     email_dict = { "email": email, "associated_domains": []}
     email_dict["associated_domains"] = get_holehe(email)
 
-    Database.add_history_element(email_dict, "email", [email])
+    history = History()
+    history.add_element(email_dict, "email", [email])
 
     return jsonify(email_dict)
 

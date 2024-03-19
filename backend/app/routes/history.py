@@ -1,7 +1,8 @@
 from flask import Blueprint, abort, jsonify
-from app.utils.database import Database
-from bson import ObjectId
-
+from app.utils.History import History
+import glob
+import os
+import json
 
 history = Blueprint('history', __name__)
 
@@ -9,37 +10,44 @@ history = Blueprint('history', __name__)
 def get_history():
     history = []
 
-    db = Database().get_connection()
+    hist = History()
 
-    history_collection = db["history"]
-    history_data = history_collection.find({}, {"data": 0}).sort("datetime", -1)
-
-    for data in history_data:
-        data["_id"] = str(data["_id"])
-        history.append(data)
+    files = glob.glob(f"{hist.folder_path}/*.json")
+    for file in files:
+        try:
+            with open(file, "r") as f:
+                json_data = json.load(f)
+                json_data.pop("data", None)
+                history.append(json_data)
+        except json.JSONDecodeError:
+            continue
     return jsonify(history)
 
 @history.route('/api/history', methods=['DELETE'])
 def clear_history():
-    db = Database().get_connection()
-    db.history.delete_many({})
+    hist = History()
+    files = glob.glob(f"{hist.folder_path}/*.json")
+    for file in files:
+        os.remove(file)
+
     return jsonify({"message": "History cleared"})
 
-@history.route('/api/history/<id>', methods=['GET'])
-def get_history_element(id):
-    db = Database().get_connection()
-    if not ObjectId.is_valid(id) or db.history.find_one({"_id": ObjectId(id)}) == None:
+@history.route('/api/history/<uuid>', methods=['GET'])
+def get_history_element(uuid):
+    hist = History()
+    file = glob.glob(f"{hist.folder_path}/{uuid}.json")
+    if uuid == None or uuid == "" or len(file) == 0:
         abort(400)
-    history_element = db.history.find_one({"_id": ObjectId(id)})
-    history_element["_id"] = str(history_element["_id"])
-    return jsonify(history_element)
+    with open(file[0], "r") as f:
+        return jsonify(json.load(f))
 
-@history.route('/api/history/<id>', methods=['DELETE'])
-def delete_history_element(id):
-    db = Database().get_connection()
-    if not ObjectId.is_valid(id) or db.history.find_one({"_id": ObjectId(id)}) == None:
+@history.route('/api/history/<uuid>', methods=['DELETE'])
+def delete_history_element(uuid):
+    hist = History()
+    file = glob.glob(f"{hist.folder_path}/{uuid}.json")
+    if uuid == None or id == "" or len(file) == 0:
         abort(400)
-    db.history.delete_one({"_id": ObjectId(id)})
+    os.remove(file[0])
     return jsonify({"message": "History element deleted"})
 
 @history.errorhandler(400)

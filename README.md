@@ -14,6 +14,7 @@ Le projet est dirigé par :
 - `.env` : Fichier d'inventaire (à configurer avant lancement des conteneurs)
 - `backend` : Code du backend
   - `run.py` : Fonction principale du backend
+  - `history` : Dossier contenant les json des requêtes effectuées.
   - `app` : Répertoire de l'API
     - `routes` : Routes de l'API
     - `services` : Fonctions spécifiques aux routes

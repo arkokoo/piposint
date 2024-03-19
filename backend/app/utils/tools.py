@@ -20,7 +20,10 @@ def get_countries():
 
 def get_country(countries, country_code):
     """Get country name and emoji from country code"""
-    country_data = countries.get(country_code, None)
-    country_name = country_data.get("name", None)
-    country_emoji = country_data.get("emoji", None)
-    return country_name, country_emoji
+    try:
+        country_data = countries[country_code]
+        country_name = country_data["name"]
+        country_emoji = country_data["emoji"]
+        return country_name, country_emoji
+    except KeyError:
+        pass

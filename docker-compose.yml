@@ -9,11 +9,6 @@ services:
     volumes:
       - ./backend:/app
     links:
-      - db
-    env_file:
-      - .env
-  db:
-    image: mongo:latest
-    container_name: piposint_db
+      - front
     env_file:
       - .env

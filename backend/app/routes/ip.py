@@ -1,6 +1,6 @@
 from flask import Blueprint, abort, request, jsonify
 from app.utils.regex import is_ip_address
-from app.utils.database import Database
+from app.utils.History import History
 from app.services.ip import get_ip
 
 ip = Blueprint('ip',__name__)
@@ -13,7 +13,8 @@ def get_ip_information() :
 
     ip_address_dict = {}
     ip_address_dict = get_ip(search_value)
-    Database.add_history_element(ip_address_dict, "ip", [search_value])
+    history = History()
+    history.add_element(ip_address_dict, "ip", [search_value])
     return jsonify(ip_address_dict)
 
 @ip.errorhandler(400)

@@ -11,5 +11,5 @@
   </script>
 
 <style lang="scss" scoped>
-@import url(./styles/tutorials.scss);
+@import url(./styles/methods.scss);
 </style>

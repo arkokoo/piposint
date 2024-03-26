@@ -61,54 +61,9 @@
 </template>  
 
 <script>
-export default {};
+  export default {};
 </script>
 
 <style lang="scss" scoped>
-@import url(./../assets/main.scss);
-
-.container {
-  display: flex;
-  flex-wrap: wrap-reverse;
-  flex-direction: row;
-  justify-content: center;
-  padding-bottom: 5rem;
-  .title {
-    order: 1;
-    width: 50%;
-    padding-bottom: 1.5rem;
-    font-size: 3rem;
-    align-self: center;
-  }
-  .subtitle {
-    font-size: 2rem;
-  }
-  .sub-container {
-    display: flex;
-    width: 48%;
-    flex-direction: column;
-  }
-  .cards {
-    display: flex;
-    justify-content: space-between;
-    .card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 1rem;
-      width: 190px;
-      height: 254px;
-      border-radius: 30px;
-      background: #f7f9f4;
-      box-shadow: 15px 15px 30px #bebebe,
-                 -15px -15px 30px #ffffff;
-      p{
-        margin-top: 0;
-        font-weight: 600;
-      }
-    }
-  
-  }
-}
-
+@import url(./styles/about.scss);
 </style>

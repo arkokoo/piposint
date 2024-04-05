@@ -1,5 +1,5 @@
 <template>
-  <section class="container" style="padding-top: 13rem;">
+  <section v-show="!mobile" class="container" style="padding-top: 13rem;">
     <div class="title">À propos de nous</div>
     <div class="sub-container" style="padding-right: 0.5rem;">
       <span class="subtitle">Bonjour !</span>
@@ -11,21 +11,51 @@
     <div class="sub-container" style="padding-left: 0.5rem;">
       <div class="cards">
         <div class="card">
-          <img src="https://avatars.githubusercontent.com/u/107856433?v=4" alt="Prezident" width="150px" height="150px" style="align-self: center; margin: auto; border-radius: 50%;">
+          <img src="https://avatars.githubusercontent.com/u/107856433?v=4" alt="Prezident" width="120px" height="120px" style="align-self: center; margin: auto; border-radius: 50%;">
           <p>Prezident</p>
         </div>
         <div class="card">
-          <img src="https://avatars.githubusercontent.com/u/90249274?v=4" alt="Ectolast" width="150px" height="150px" style="align-self: center; margin: auto; border-radius: 50%;">
+          <img src="https://avatars.githubusercontent.com/u/90249274?v=4" alt="Ectolast" width="120px" height="120px" style="align-self: center; margin: auto; border-radius: 50%;">
           <p>Ectolast</p>
         </div>
         <div class="card">
-          <img src="https://avatars.githubusercontent.com/u/54044114?v=4" alt="ArKoo" width="150px" height="150px" style="align-self: center; margin: auto; border-radius: 50%;">
+          <img src="https://avatars.githubusercontent.com/u/54044114?v=4" alt="ArKoo" width="120px" height="120px" style="align-self: center; margin: auto; border-radius: 50%;">
           <p>ArKoo</p>
         </div>
-        
       </div>
     </div>
   </section>
+
+  <!-- faire ça pour chaque section je sais pas si c'est opti :/ -->
+  <transition name="mobile-nav">
+    <section v-show="mobile" class="mobile-container">
+    <div class="title">À propos de nous</div>
+    <div class="mobile-sub-container" style="padding-right: 0.5rem;">
+    <span class="subtitle">Bonjour !</span>
+      <p class="text">Bienvenue sur ce magnifique site ! 
+      Nous sommes trois étudiants du Pôle Sup de La Salle à Rennes et ceci est notre projet annuel. <br><br>
+      Nous sommes en Bachelor Sécurité Informatique (niveau BAC + 3) et avons donc eu l'idée de développer notre projet sur le thème de l'OSINT.
+      </p>
+    </div>
+    <div class="mobile-sub-container" style="">
+      <div class="cards">
+        <div class="card">
+          <img src="https://avatars.githubusercontent.com/u/107856433?v=4" alt="Prezident" width="90px" height="90px" style="align-self: center; margin: auto; border-radius: 50%;">
+          <p>Prezident</p>
+        </div>
+        <div class="card">
+          <img src="https://avatars.githubusercontent.com/u/90249274?v=4" alt="Ectolast" width="90px" height="90px" style="align-self: center; margin: auto; border-radius: 50%;">
+          <p>Ectolast</p>
+        </div>
+        <div class="card">
+          <img src="https://avatars.githubusercontent.com/u/54044114?v=4" alt="ArKoo" width="90px" height="90px" style="align-self: center; margin: auto; border-radius: 50%;">
+          <p>ArKoo</p>
+        </div>
+      </div>
+    </div>
+    </section>
+  </transition>
+  
   <section class="container" style="padding-top: 5rem;">
     <div class="title">En bref</div>
     <div class="sub-container" style="padding-right: 0.5rem;">
@@ -43,25 +73,61 @@
        pipOSINT est né.
       </p>
     </div>
-    </section>
+  </section>
+  
   <section class="container" style="padding-top: 5rem;">
     <div class="title">Mentions Légales</div>
-    <div class="sub-container" style="padding-right: 0.5rem;">
-      <!-- <font-awesome-icon :icon="['fas', 'scale-balanced']" height="300px"/> marche pas bien :/ -->
+    <div class="sub-container" style="padding-right: 0.5rem; justify-content: center;">
+      <img src="../assets/gavel.png" alt="mentions-legales" style="width: 60%; align-self: center;">
     </div>
     <div class="sub-container" style="padding-left: 0.5rem;">
       <span class="subtitle">Conditions d'utilisation</span>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-        sunt in culpa qui officia deserunt mollit anim id est laborum.
+      <p>pipOSINT receuille et répertorie des outils d'Open Source Intelligence (OSINT) provenant de différentes sources disponibles publiquement. <br><br>
+        Les informations fournies sur ce site sont fournies à titre informatif uniquement. 
+        Nous ne garantissons ni ne cautionnons l'exactitude, l'exhaustivité ou la fiabilité des informations récupérées, et déclinons toute responsabilité quant à leur utilisation. <br><br> 
+        Les utilisateurs sont responsables de l'utilisation des outils répertoriés et doivent se conformer aux lois et réglementations applicables. 
+        Les utilisateurs sont encouragés à consulter les conditions d'utilisation et les politiques de confidentialité de chaque outil individuel avant de les utiliser. <br><br>
+        En utilisant ce site, vous acceptez ces conditions d'utilisation.
       </p>
     </div>
   </section>
 </template>  
 
 <script>
-  export default {};
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+export default {
+    name: 'About',
+    data() {
+        return {
+            scrollPosition: null,
+            mobile: null,
+            mobileNav: null,
+            windowWidth: null,
+        };
+    },
+    created () {
+      window.addEventListener('resize', this.checkScreen);
+      this.checkScreen();
+    },
+    methods: {
+      toggleMobileNavigation() {
+        this.mobileNav = !this.mobileNav;
+      },
+      checkScreen() {
+        this.windowWidth = window.innerWidth;
+        if (this.windowWidth <= 1000) {
+          this.mobile = true;
+          return;
+        } else {
+          this.mobile = false;
+          this.mobileNav = false;
+          return;
+        }
+      },
+    },
+    components: { FontAwesomeIcon }
+};
 </script>
 
 <style lang="scss" scoped>

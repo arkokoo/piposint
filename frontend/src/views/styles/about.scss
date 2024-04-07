@@ -1,99 +1,80 @@
 @import url(./../../assets/main.scss);
 
 .container {
-  padding-top: 23%;
-  align-items: center;
-  padding-bottom: 20rem;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 5rem;
+  .title {
+    order: 1;
+    width: 50%;
+    padding-bottom: 1.5rem;
+    font-size: 3rem;
+    align-self: center;
+  }
+  .subtitle {
+    font-size: 2rem;
+  }
   .sub-container {
     display: flex;
+    width: 48%;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    .button {
-      width: 20rem;
-      font-size: 20px;
-    }
   }
-}
-// mobile version
-.mobile-container {
-  padding-top : 20rem;
-  padding-bottom: 15rem;
-  .sub-mobile-container {
+  .cards {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    .title {
-      font-size: 4rem;
-      padding-bottom: 0;
-    }
-    .button {
-      align-self: center;
+    justify-content: space-between;
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1rem;
+      width: 33%;
+      height: 254px;
+      border-radius: 30px;
+      background: #f7f9f4;
+      box-shadow: 0 15px 30px #bebebe,
+                 0 -15px 30px #ffffff;
+      p{
+        margin-top: 0;
+        font-weight: 600;
+      }
     }
   }
 }
-// le bouton let's go
-.button {
-  position: relative;
-  width: 15rem;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-  padding-block: 0.5rem;
-  padding-inline: 1.25rem;
-  background-color: rgb(13 121 37);
-  border-radius: 9999px;
+
+.mobile-container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  color: #ffff;
-  gap: 10px;
-  font-weight: bold;
-  font-family: 'Space Mono', monospace;
-  border: 3px solid #ffffff4d;
-  outline: none;
-  overflow: hidden;
-  font-size: 15px;
-  cursor: pointer;
-}
-.icon {
-  width: 24px;
-  height: 24px;
-  transition: all 0.3s ease-in-out;
-}
-.button:hover {
-  transform: scale(1.05);
-  border-color: #fff9;
-}
-.button:hover .icon {
-  transform: translate(4px);
-}
-.button:hover::before {
-  animation: shine .5s ease-out;
-}
-.button::before {
-  content: "";
-  position: absolute;
-  width: 100px;
-  height: 100%;
-  background-image: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0) 30%,
-    rgba(255, 255, 255, 0.8),
-    rgba(255, 255, 255, 0) 70%
-  );
-  top: 0;
-  left: -100px;
-  opacity: 0.6;
-}
-@keyframes shine {
-  0% {
-    left: -100px;
+  text-align: center;
+  padding-top: 20%;
+  
+  .mobile-sub-container {
+    padding-bottom: 2rem;
+
+    .cards {
+      display: flex;
+      justify-content: space-between;
+  
+      .card{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 1rem;
+        width: 33%;
+        height: 200px;
+        border-radius: 30px;
+        background: #f7f9f4;
+        box-shadow: 0px 15px 30px #bebebe,
+                   0px -15px 30px #ffffff;
+      }
+    }
   }
-  60% {
-    left: 100%;
-  }
-  to {
-    left: 100%;
+  
+  .title {
+    align-self: center;
+    font-size: 3rem;
+    padding-bottom: 0;
   }
 }

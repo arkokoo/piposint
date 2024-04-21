@@ -1,5 +1,5 @@
 from app.utils.Requester import Requester
-
+from flask import abort
 
 def deepupdate(original_dict, new_dict):
     """Merge recursively two dictionaries"""
@@ -9,14 +9,14 @@ def deepupdate(original_dict, new_dict):
         else:
             original_dict[key] = value
 
-
 def get_countries():
     """Get countries data from country-flag-emoji-json package"""
     url = "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/by-code.json"
     response = Requester(url).get()
+    if response is None:
+        abort(500, description="Failed to fetch countries data")
     countries = response.json()
     return countries
-
 
 def get_country(countries, country_code):
     """Get country name and emoji from country code"""

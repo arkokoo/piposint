@@ -1,7 +1,7 @@
-from flask import Blueprint, abort, request, jsonify
 from app.services.email import get_holehe
 from app.utils.regex import is_email
 from app.utils.History import History
+from flask import Blueprint, abort, request, jsonify
 
 email = Blueprint('email', __name__)
 
@@ -16,10 +16,14 @@ def get_email():
     email_dict["associated_domains"] = get_holehe(email)
 
     history = History()
-    history.add_element(email_dict, "email", [email])
+    history.add_element(param_data=email_dict, param_type="email", param_args=[email])
 
     return jsonify(email_dict)
 
 @email.errorhandler(400)
 def bad_request(error):
     return jsonify({"error": "Bad Request, please ensure all parameters are provided"}), 400
+
+@email.errorhandler(500)
+def bad_request(error):
+    return jsonify({"error": "Internal Server Error", "description": error.description}), 500

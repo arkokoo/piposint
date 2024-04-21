@@ -1,4 +1,3 @@
-from flask import Flask
 from app.routes.person import person
 from app.routes.email import email
 from app.routes.phone import phone
@@ -7,6 +6,7 @@ from app.routes.ip import ip
 from app.routes.domain import domain
 from app.routes.history import history
 from app.utils.vars import *
+from flask import Flask
 
 def create_app():
     app = Flask(__name__)

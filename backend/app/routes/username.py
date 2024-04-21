@@ -1,6 +1,6 @@
-from flask import Blueprint, abort, request, jsonify
 from app.services.username import get_blackbird
 from app.utils.History import History
+from flask import Blueprint, abort, request, jsonify
 
 username = Blueprint('username', __name__)
 
@@ -14,7 +14,7 @@ def get_username() :
     user_dict = {}
     user_dict = get_blackbird(username)
     history = History()
-    history.add_element(user_dict, "username", [username])
+    history.add_element(param_data=user_dict, param_type="username", param_args=[username])
     return jsonify(user_dict)
 
 @username.errorhandler(400)

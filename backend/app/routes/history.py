@@ -1,5 +1,5 @@
-from app.utils.History import History
-from flask import Blueprint, abort, jsonify
+from app.utils.History import History, get_overpass_turbo_args
+from flask import Blueprint, abort, jsonify, request
 import glob
 import os
 import json
@@ -31,6 +31,21 @@ def clear_history():
         os.remove(file)
 
     return jsonify({"message": "History cleared"})
+
+@history.route('/api/history', methods=['POST'])
+def add_history_element():
+    hist = History()
+    data = request.json
+    if data is None:
+        abort(400)
+
+    service_name = data["service"]
+    data.pop("service")
+
+    service_args = get_overpass_turbo_args(service_name, data)
+
+    hist.add_element(param_data=data, param_type=service_name, param_args=service_args)
+    return jsonify({"message": "History element added"})
 
 @history.route('/api/history/<uuid>', methods=['GET'])
 def get_history_element(uuid):

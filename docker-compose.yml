@@ -1,14 +1,17 @@
 services:
   back:
     build:
-      context: .
-      dockerfile: Dockerfile.back
+      context: ./backend
     container_name: piposint_back
     ports:
       - "5000:5000"
-    volumes:
-      - ./backend:/app
     #links:
     #  - front
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
+  service_overpass-turbo:
+    build:
+      context: ./overpass-turbo
+    container_name: piposint_overpass-turbo
+    ports:
+      - "5001:5173"

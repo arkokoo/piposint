@@ -4,8 +4,8 @@ FROM python:3.11-alpine
 RUN apk update
 
 # Copy backend files to container
-ADD ./backend /app
-WORKDIR /app
+ADD . /api
+WORKDIR /api
 
 # Install Python dependencies
 RUN python -m pip install --upgrade pip

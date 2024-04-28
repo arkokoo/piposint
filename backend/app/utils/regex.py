@@ -17,3 +17,7 @@ def is_ip_address(value) :
 def is_domain(value) :
     REGEX_DOMAIN = r'[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     return bool(re.fullmatch(REGEX_DOMAIN,value))
+
+def is_website(value) :
+    REGEX_WEBSITE = r'(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?'
+    return bool(re.fullmatch(REGEX_WEBSITE,value))

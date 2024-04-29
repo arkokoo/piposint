@@ -1,0 +1,9 @@
+#history-button {
+    background-color: #0d7925;
+    color: white;
+    border: none;
+}
+
+#history-button.disabled {
+    background-color: #f44336;
+}

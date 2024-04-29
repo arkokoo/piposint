@@ -1,17 +1,19 @@
 services:
-  back:
+  backend:
     build:
       context: ./backend
-    container_name: piposint_back
+    container_name: piposint-back
     ports:
       - "5000:5000"
-    #links:
-    #  - front
-    # env_file:
-    #   - .env
-  service_overpass-turbo:
+  frontend:
+    build:
+      context: ./frontend
+    container_name: piposint-front
+    ports:
+      - "5001:4173"
+  service_ot:
     build:
       context: ./overpass-turbo
-    container_name: piposint_overpass-turbo
+    container_name: piposint-service_ot
     ports:
-      - "5001:5173"
+      - "5002:5173"

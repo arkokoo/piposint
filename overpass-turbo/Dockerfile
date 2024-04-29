@@ -11,7 +11,5 @@ COPY ./app .
 RUN yarn install
 RUN yarn build
 
-EXPOSE 5173
-
 # Lancer l'application
-CMD [ "yarn", "run", "start", "--host"]
+CMD [ "yarn", "run", "start", "--host" ]

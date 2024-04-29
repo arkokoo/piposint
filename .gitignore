@@ -1,3 +1,9 @@
+# Backend
 __pycache__
 venv
-history
+backend/app/history
+
+# Frontend
+node_modules
+pnpm-lock.yaml
+frontend/app/dist

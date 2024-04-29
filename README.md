@@ -10,18 +10,19 @@ Le projet est dirigé par :
 ## Arborescence
 
 - `docker-compose.yml` : Installe l'environnement complet de l'outil
-- `Dockerfile.back` : Dockerfile du backend
-- `.env` : Fichier d'inventaire (à configurer avant lancement des conteneurs)
-- `backend` : Code du backend
+- `backend/` : Code du backend
+  - `.env` : Fichier d'inventaire (à configurer avant lancement des conteneurs)
   - `run.py` : Fonction principale du backend
-  - `history` : Dossier contenant les json des requêtes effectuées.
-  - `app` : Répertoire de l'API
-    - `routes` : Routes de l'API
-    - `services` : Fonctions spécifiques aux routes
-    - `utils` : Fonctions générales
-  - `tests` : Tests des routes
-- `frontend` : Code du frontend
-- `docs` : Documentations du projet
+  - `history/` : Dossier contenant les json des requêtes effectuées.
+  - `app/` : Répertoire de l'API
+    - `routes/` : Routes de l'API
+    - `services/` : Fonctions spécifiques aux routes
+    - `utils/` : Fonctions générales
+    - `tests/` : Tests des routes
+- `frontend/` : Code du frontend
+- `overpass-turbo/` : Code du service overpass-turbo
+  - `app/` : Patch d'intégration à la solution
+- `docs/` : Documentations du projet
 
 ## Installation
 

@@ -1,7 +1,12 @@
+@use 'variables';
 @import url(./base.scss);
 @import url(./background.scss);
 
-#app {
-    background-color: #f7f9f4;
-    width: 100%;
+html {
+    background-color: variables.$color-light-primary;
+}
+
+
+.dark_theme #app {
+    background-color: variables.$color-dark-primary;
 }

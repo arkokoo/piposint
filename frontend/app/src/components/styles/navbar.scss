@@ -1,10 +1,12 @@
+@use '../../assets/variables';
+
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 50;
-  background-color: #f7f9f4;
+  background-color: variables.$color-light-primary;
   transition: .5s ease all;
   color: #000000;
 
@@ -14,7 +16,7 @@
     align-items: stretch;
     justify-content: space-between;
     padding: 0.75rem 12px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid variables.$color-light-border;
 
     .navigation {
       a {
@@ -64,14 +66,14 @@
       align-items: center;
       flex-direction: column;
       position: fixed;
-      background-color: #f7f9f4;
+      background-color: variables.$color-light-primary;
       width: 100%;
       max-width: 250px;
       height: 100%;
       margin-top: 0;
       top: 0;
       left: 0;
-      border-right: solid 1px rgba(0, 0, 0, 0.1);
+      border-right: solid 1px variables.$color-light-border;
     }
   }
 
@@ -115,4 +117,29 @@ ul {
   display: flex;
   padding-left: 0;
   list-style-type: none;
+}
+
+.dark_theme {
+  .navbar {
+    background-color: variables.$color-dark-primary;
+    color: variables.$color-dark-text;
+
+    .container {
+      border-bottom: 1px solid variables.$color-dark-border;
+
+      .navigation a {
+        color: variables.$color-dark-text;
+        border: 0.2em solid variables.$color-dark-border;
+        &:hover {
+          box-shadow: rgba(255, 255, 255, 0.05) 0 8px 15px;
+          
+        }
+      }
+
+      .mobile-navigation {
+        background-color: variables.$color-dark-primary;
+        border-right: solid 1px variables.$color-dark-border;
+      }
+    }
+  }
 }

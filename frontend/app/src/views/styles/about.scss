@@ -1,3 +1,4 @@
+@use '../../assets/variables';
 @import url(./../../assets/main.scss);
 
 .container {
@@ -76,5 +77,18 @@
     align-self: center;
     font-size: 3rem;
     padding-bottom: 0;
+  }
+}
+
+.dark_theme {
+  .cards .card {
+    background: variables.$color-dark-primary;
+    color: #f7f9f4;
+    box-shadow: 0 15px 30px variables.$color-dark-secondary,
+               0 -15px 30px variables.$color-dark-primary;
+
+  }
+  #icon {
+    filter: invert(1) brightness(0.75);
   }
 }

@@ -1,3 +1,5 @@
+@use 'variables';
+
 // Defaut pour toutes les pages, uniformité
 * {
   font-family: 'Space Mono', monospace; // default font, si jamais on oublie
@@ -7,7 +9,7 @@
 
 // Bordure en bas des sections pour une meilleure lisibilité
 section {
-  border-bottom: solid 1px rgba($color: #000000, $alpha: 0.1);
+  border-bottom: solid 1px variables.$color-light-border;
 }
 // Conteneur de base pour la mise en forme de la page, uniformité
 .container {
@@ -45,3 +47,10 @@ section {
     padding-bottom: 0.75rem;
 }
 
+.dark_theme {
+    color: variables.$color-dark-text;
+
+    section {
+        border-bottom: solid 1px variables.$color-dark-border;
+    }
+}

@@ -1,17 +1,18 @@
 @use 'variables';
 
 .animated-background {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
     width: 100%;
     height:100%;
-    z-index: 0;
+    z-index: -1;
+
     ul {
-        position: absolute;
-        top: 0;
-        left: 0;
         padding: 0;
         width: 100%;
         height: 100%;
-        overflow: hidden;
         filter: blur(3px);
 
         li {

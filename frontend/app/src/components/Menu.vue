@@ -40,7 +40,7 @@
         <li class="honeycomb-cell">
           <div class="honeycomb-cell-overlay"/>
           <div class="honeycomb-cell-inner">
-            <span class="honeycomb-cell-inner_title">Website</span>
+            <span class="honeycomb-cell-inner_title">Overpass Turbo</span>
         </div>
       </li>
       </ul>

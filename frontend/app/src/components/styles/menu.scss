@@ -61,6 +61,12 @@
   &:nth-child(6){ grid-column-start: 4; }
   &:nth-child(7){ grid-column-start: 6; }
 
+  &:last-child {
+    .honeycomb-cell-inner_title {
+      padding-top: 5rem;
+    }
+  }
+
   &:hover
   {
     transform: scale(1.100);

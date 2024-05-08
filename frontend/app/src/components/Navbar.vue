@@ -7,27 +7,31 @@
         crossorigin="anonymous">
 
     <nav class="container">
-      <a class="sides z-50 flex items-center gap-2 -ml-3 md:mr-12">
-          <img src="./../assets/images/piposint.svg" alt="pipOSINT">
-          <p>pipOSINT</p>
-      </a>
+      <router-link :to="{ name: 'Home' }" @click="mobileNav = false" class="piposint-logo">
+        <img src="./../assets/images/piposint.svg" alt="pipOSINT">
+        <p>pipOSINT</p>
+      </router-link>
       <ul v-show="!mobile" class="navigation">
         <li><router-link :to="{ name: 'Home' }" >Accueil</router-link></li>
         <li><router-link :to="{ name: 'About' }" >À propos</router-link></li>
         <li><a href="https://gitlab.com/bsi-dls/piposint" target="_blank">Gitlab</a></li>
         <li><router-link :to="{ name: 'Tutorials' }" >Tuto</router-link></li>
       </ul>
-      <i v-show="!mobile" class="fas fa-moon" @click="toggleDarkMode"></i>
-      <i v-show="mobile" @click="toggleMobileNavigation" class="fas fa-bars"></i>
-      <transition name="mobile-nav">
-        <ul v-show="mobileNav" class="mobile-navigation">
-          <li><router-link :to="{ name: 'Home' }" >Accueil</router-link></li>
-          <li><router-link :to="{ name: 'About' }" >À propos</router-link></li>
-          <li><a href="https://gitlab.com/bsi-dls/piposint" target="_blank">Gitlab</a></li>
-          <li><router-link :to="{ name: 'Tutorials' }" >Tuto</router-link></li>
-          <li><i class="fas fa-moon" style="padding: 0;" @click="toggleDarkMode"></i></li>
-        </ul>
-      </transition>
+      <ul v-show="!mobile" class="navbar-items">
+          <li><i class="fas fa-sync" id="history-button"></i></li>
+          <li><i id="toggle-dark-mode" :class="{'fas fa-moon': colorTheme === 'light_theme', 'fas fa-sun': colorTheme === 'dark_theme'}" @click="toggleDarkMode"></i></li>
+      </ul>
+      <ul v-show="mobileNav" class="mobile-navigation">
+        <i id="toggle-dark-mode" :class="{'fas fa-moon': colorTheme === 'light_theme', 'fas fa-sun': colorTheme === 'dark_theme'}" @click="toggleDarkMode"></i>
+        <li><router-link :to="{ name: 'Home' }" @click="mobileNav = false">Accueil</router-link></li>
+        <li><router-link :to="{ name: 'About' }" @click="mobileNav = false">À propos</router-link></li>
+        <li><a href="https://gitlab.com/bsi-dls/piposint" target="_blank" @click="mobileNav = false">Gitlab</a></li>
+        <li><router-link :to="{ name: 'Tutorials' }" @click="mobileNav = false">Tuto</router-link></li>
+      </ul>
+      <ul v-show="mobile" class="navbar-items">
+        <li><i class="fas fa-sync" id="history-button"></i></li>
+        <li><i class="fas fa-bars" @click="toggleMobileNavigation"></i></li>
+      </ul>
     </nav>
   </header>
 </template>

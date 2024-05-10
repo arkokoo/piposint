@@ -99,7 +99,7 @@
   <section v-show="!mobile" class="container" style="padding-top: 5rem;">
     <div class="title">Mentions Légales</div>
     <div class="sub-container" style="padding-right: 0.5rem; justify-content: center;">
-      <img src="../assets/gavel.png" alt="mentions-legales" style="width: 60%; align-self: center;">
+      <img id="icon" src="../assets/images/gavel.png" alt="mentions-legales" style="width: 60%; align-self: center;">
     </div>
     <div class="sub-container" style="padding-left: 0.5rem;">
       <span class="subtitle">Conditions d'utilisation</span>
@@ -117,7 +117,7 @@
     <section v-show="mobile" class="mobile-container" style="padding-top: 5rem;">
     <div class="title" style="padding-bottom: 2rem;">Mentions Légales</div>
     <div class="mobile-sub-container" style="padding-right: 0.5rem; justify-content: center;">
-      <img src="../assets/gavel.png" alt="mentions-legales" style="width: 35%; align-self: center;">
+      <img id="icon" src="../assets/images/gavel.png" alt="mentions-legales" style="width: 35%; align-self: center;">
     </div>
     <div class="mobile-sub-container">
       <span class="subtitle">Conditions d'utilisation</span>

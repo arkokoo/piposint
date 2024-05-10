@@ -98,6 +98,10 @@
   }
 }
 
+.homescreen {
+  z-index: 10;
+}
+
 @keyframes shine {
   0% {
     left: -100px;

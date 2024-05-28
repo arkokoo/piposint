@@ -3,14 +3,14 @@ import asyncio
 import json
 import aiohttp
 from bs4 import BeautifulSoup
+import os
 
 async def run_light_blackbird(username):
     """Run the light version of the blackbird tool."""
 
     # Get the sites data from the blackbird repository
-    github_request = "https://raw.githubusercontent.com/p1ngul1n0/blackbird/master/data.json"
-    response = Requester(url=github_request).get()
-    search_data = response.json()
+    file = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data.json"),'r')
+    search_data = json.load(file)
 
     timeout = aiohttp.ClientTimeout(total=20)
     output_dict = {

@@ -1,6 +1,5 @@
 <template>
   <header class="navbar">
-
     <link rel="stylesheet" 
         href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" 
         integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" 
@@ -18,84 +17,96 @@
         <li><router-link :to="{ name: 'Tutorials' }" >Tuto</router-link></li>
       </ul>
       <ul v-show="!mobile" class="navbar-items">
-          <li><i class="fas fa-sync" id="history-button"></i></li>
-          <li><i id="toggle-dark-mode" :class="{'fas fa-moon': colorTheme === 'light_theme', 'fas fa-sun': colorTheme === 'dark_theme'}" @click="toggleDarkMode"></i></li>
+        <li>
+            <History @click="openHistory" class="history-button" alt="Historique" title="Historique"/>
+        </li>
+        <li>
+          <Moon v-if="colorTheme === 'light_theme'" @click="toggleDarkMode" />
+          <Sun v-if="colorTheme === 'dark_theme'" @click="toggleDarkMode" />
+        </li>
       </ul>
       <ul v-show="mobileNav" class="mobile-navigation">
-        <i id="toggle-dark-mode" :class="{'fas fa-moon': colorTheme === 'light_theme', 'fas fa-sun': colorTheme === 'dark_theme'}" @click="toggleDarkMode"></i>
+        <div>
+          <Moon v-if="colorTheme === 'light_theme'" id="toggle-dark-mode" @click="toggleDarkMode" />
+          <Sun v-if="colorTheme === 'dark_theme'" id="toggle-dark-mode" @click="toggleDarkMode" />
+        </div>
         <li><router-link :to="{ name: 'Home' }" @click="mobileNav = false">Accueil</router-link></li>
         <li><router-link :to="{ name: 'About' }" @click="mobileNav = false">À propos</router-link></li>
         <li><a href="https://gitlab.com/bsi-dls/piposint" target="_blank" @click="mobileNav = false">Gitlab</a></li>
         <li><router-link :to="{ name: 'Tutorials' }" @click="mobileNav = false">Tuto</router-link></li>
       </ul>
       <ul v-show="mobile" class="navbar-items">
-        <li><i class="fas fa-sync" id="history-button"></i></li>
-        <li><i class="fas fa-bars" @click="toggleMobileNavigation"></i></li>
+        <li class="history-button">
+          <History @click="openHistory" alt="Historique" title="Historique"/>
+        </li>
+        <li>
+          <Menu @click="toggleMobileNavigation"/>
+        </li>
       </ul>
     </nav>
+    <TheHistory v-if="isHistoryOpen" v-click-outside="openHistory"/>
   </header>
 </template>
 
+
+<script setup>
+  import { History, Menu, Moon, Sun } from 'lucide-vue-next';
+</script>
+
 <script>
+  import TheHistory from '@/components/History.vue';
+  import checkScreen from '@/components/mixins/checkScreen';
+  import clickOutsideHistory from './mixins/clickOutsideHistory';
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-export default {
-  name: 'Navbar',
-  data() {
-      return {
-          scrollPosition: null,
-          mobile: null,
-          mobileNav: null,
-          windowWidth: null,
-          colorTheme: "light_theme",
-      };
-  },
-  created () {
-    window.addEventListener('resize', this.checkScreen);
-    this.checkScreen();
-  },
-  methods: {
-    toggleMobileNavigation() {
-      this.mobileNav = !this.mobileNav;
+  export default {
+    name: 'Navbar',
+    mixins: [checkScreen],
+    data() {
+        return {
+            scrollPosition: null,
+            isHistoryOpen: false,
+            colorTheme: "light_theme",
+        };
     },
-    toggleDarkMode() {
-      if (this.colorTheme === 'dark_theme') {
-        this.colorTheme = 'light_theme';
-        document.documentElement.classList.remove('dark_theme');
+    created () {
+      window.addEventListener('resize', this.checkScreen);
+      this.checkScreen();
+    },
+    methods: {
+      toggleMobileNavigation() {
+        this.mobileNav = !this.mobileNav;
+      },
+      toggleDarkMode() {
+        if (this.colorTheme === 'dark_theme') {
+          this.colorTheme = 'light_theme';
+          document.documentElement.classList.remove('dark_theme');
+        } else {
+          this.colorTheme = 'dark_theme';
+          document.documentElement.classList.remove('light_theme');
+        }
+        document.documentElement.classList.add(this.colorTheme);
+        localStorage.setItem('piposintTheme', this.colorTheme);
+      },
+      openHistory() {
+        this.isHistoryOpen = !this.isHistoryOpen;
+      },
+    },
+    mounted() {
+      if (localStorage.getItem('piposintTheme')) {
+        // Load the theme from local storage variable
+        this.colorTheme = localStorage.getItem('piposintTheme');
       } else {
-        this.colorTheme = 'dark_theme';
-        document.documentElement.classList.remove('light_theme');
+        localStorage.setItem('piposintTheme', this.colorTheme);
       }
       document.documentElement.classList.add(this.colorTheme);
-      localStorage.setItem('piposintTheme', this.colorTheme);
     },
-    checkScreen() {
-      this.windowWidth = window.innerWidth;
-      if (this.windowWidth <= 826) {
-        this.mobile = true;
-        return;
-      } else {
-        this.mobile = false;
-        this.mobileNav = false;
-        return;
-      }
-    },
-  },
-  mounted() {
-    if (localStorage.getItem('piposintTheme')) {
-      // Load the theme from local storage variable
-      this.colorTheme = localStorage.getItem('piposintTheme')
-    }
-    else {
-      localStorage.setItem('piposintTheme', this.colorTheme);
-    }
-    document.documentElement.classList.add(this.colorTheme);
-  },
-  components: { FontAwesomeIcon }
-};
+    components: { TheHistory },
+    directives: {
+      clickOutside: clickOutsideHistory,
+      },
+  };
 </script>
 
 <style lang="scss" scoped>
-@import url(./styles/navbar.scss);
+  @import url(./styles/navbar.scss);
 </style>

@@ -135,39 +135,11 @@
 </template>  
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import checkScreen from '@/components/mixins/checkScreen';
 
 export default {
     name: 'About',
-    data() {
-        return {
-            scrollPosition: null,
-            mobile: null,
-            mobileNav: null,
-            windowWidth: null,
-        };
-    },
-    created () {
-      window.addEventListener('resize', this.checkScreen);
-      this.checkScreen();
-    },
-    methods: {
-      toggleMobileNavigation() {
-        this.mobileNav = !this.mobileNav;
-      },
-      checkScreen() {
-        this.windowWidth = window.innerWidth;
-        if (this.windowWidth <= 1000) {
-          this.mobile = true;
-          return;
-        } else {
-          this.mobile = false;
-          this.mobileNav = false;
-          return;
-        }
-      },
-    },
-    components: { FontAwesomeIcon }
+    mixins: [checkScreen],
 };
 </script>
 

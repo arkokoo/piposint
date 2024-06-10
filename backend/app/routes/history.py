@@ -3,12 +3,13 @@ from flask import Blueprint, abort, jsonify, request
 import glob
 import os
 import json
+from datetime import datetime
 
 history = Blueprint('history', __name__)
 
 @history.route('/api/history', methods=['GET'])
 def get_history():
-    history = []
+    history = {}
 
     hist = History()
 
@@ -18,7 +19,20 @@ def get_history():
             with open(file, "r") as f:
                 json_data = json.load(f)
                 json_data.pop("data", None)
-                history.append(json_data)
+
+                datetime = json_data["datetime"]
+                year = datetime[0:4]
+                month = datetime[5:7]
+                day = datetime[8:10]
+
+                if year not in history:
+                    history[year] = {}
+                if month not in history[year]:
+                    history[year][month] = {}
+                if day not in history[year][month]:
+                    history[year][month][day] = []
+
+                history[year][month][day].append(json_data)
         except json.JSONDecodeError:
             continue
     return jsonify(history)

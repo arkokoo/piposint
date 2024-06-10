@@ -4,7 +4,7 @@
         <li class="honeycomb-cell">
           <div class="honeycomb-cell-overlay"/>
           <div class="honeycomb-cell-inner">
-            <span class="honeycomb-cell-inner_title">Person</span>
+            <span class="honeycomb-cell-inner_title">Personne</span>
         </div>
       </li>
         <li class="honeycomb-cell">
@@ -16,25 +16,25 @@
         <li class="honeycomb-cell">
           <div class="honeycomb-cell-overlay"/>
           <div class="honeycomb-cell-inner">
-            <span class="honeycomb-cell-inner_title">Username</span>
+            <span class="honeycomb-cell-inner_title">Pseudo</span>
         </div>
       </li>
         <li class="honeycomb-cell">
           <div class="honeycomb-cell-overlay"/>
           <div class="honeycomb-cell-inner">
-            <span class="honeycomb-cell-inner_title">Company</span>
+            <span class="honeycomb-cell-inner_title">IP</span>
         </div>
       </li>
         <li class="honeycomb-cell">
           <div class="honeycomb-cell-overlay"/>
           <div class="honeycomb-cell-inner">
-            <span class="honeycomb-cell-inner_title">Phone</span>
+            <span class="honeycomb-cell-inner_title">Téléphone</span>
         </div>
       </li>
         <li class="honeycomb-cell">
           <div class="honeycomb-cell-overlay"/>
           <div class="honeycomb-cell-inner">
-            <span class="honeycomb-cell-inner_title">Domain</span>
+            <span class="honeycomb-cell-inner_title">Domaine</span>
         </div>
       </li>
         <li class="honeycomb-cell">
@@ -43,9 +43,9 @@
             <span class="honeycomb-cell-inner_title">Overpass Turbo</span>
         </div>
       </li>
-      </ul>
-    </section>
-  </template>  
+    </ul>
+  </section>
+</template>  
   
 <script>
   export default {

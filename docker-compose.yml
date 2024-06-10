@@ -1,19 +1,31 @@
 services:
+  nginx:
+    build:
+      context: ./nginx
+    container_name: piposint-nginx
+    ports:
+      - "5000:443"
+    networks:
+      - network
   backend:
     build:
       context: ./backend
     container_name: piposint-back
-    ports:
-      - "5000:5000"
+    networks:
+      - network
   frontend:
     build:
       context: ./frontend
     container_name: piposint-front
-    ports:
-      - "5001:4173"
+    depends_on:
+      - backend
+    networks:
+      - network
   service_ot:
     build:
       context: ./overpass-turbo
     container_name: piposint-service_ot
-    ports:
-      - "5002:5173"
+    networks:
+      - network
+networks:
+  network:

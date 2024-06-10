@@ -55,23 +55,12 @@
 </template>  
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import TheMenu from '@/components/Menu.vue';
+import checkScreen from '@/components/mixins/checkScreen';
 
 export default {
     name: 'Home',
-    data() {
-        return {
-            scrollPosition: null,
-            mobile: null,
-            mobileNav: null,
-            windowWidth: null,
-        };
-    },
-    created () {
-      window.addEventListener('resize', this.checkScreen);
-      this.checkScreen();
-    },
+    mixins: [checkScreen],
     methods: {
       goToMenu() {
         const element = document.getElementById('honeycomb_menu');
@@ -79,22 +68,8 @@ export default {
           element.scrollIntoView({ behavior: 'smooth' });
         }
       },
-      toggleMobileNavigation() {
-        this.mobileNav = !this.mobileNav;
-      },
-      checkScreen() {
-        this.windowWidth = window.innerWidth;
-        if (this.windowWidth <= 826) {
-          this.mobile = true;
-          return;
-        } else {
-          this.mobile = false;
-          this.mobileNav = false;
-          return;
-        }
-      },
     },
-    components: { FontAwesomeIcon, TheMenu }
+    components: { TheMenu }
 };
 </script>
 

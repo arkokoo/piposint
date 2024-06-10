@@ -9,6 +9,7 @@ import { RouterView } from 'vue-router';
   <TheNavbar />
   <RouterView />
 </template>
+
 <script>
 
 export default {
@@ -17,14 +18,6 @@ export default {
     TheNavbar,
     TheHome,
     TheAbout,
-  },
-  data() {
-    return {
-      scrollPosition: null,
-      mobile: null,
-      mobileNav: null,
-      windowWidth: null,
-    };
   },
 };
 

@@ -1453,9 +1453,9 @@ class IDE {
         inc_coords,
         true
       );
-      const share_link = baseurl + shared_query;
+      const share_link =  "/services/overpass-turbo/" + shared_query;
 
-      fetch("http://localhost:5000/api/history", {
+      fetch("/api/history", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

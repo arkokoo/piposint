@@ -1,7 +1,7 @@
 # Backend
 __pycache__
 venv
-backend/app/history
+backend/history/*.json
 
 # Frontend
 node_modules

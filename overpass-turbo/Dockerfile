@@ -2,6 +2,8 @@ FROM node:21-alpine
 
 RUN apk add --no-cache git
 
+RUN npm install -g http-server
+
 WORKDIR /app
 
 RUN git clone https://github.com/tyrasd/overpass-turbo.git .
@@ -12,4 +14,4 @@ RUN yarn install
 RUN yarn build
 
 # Lancer l'application
-CMD [ "yarn", "run", "start", "--host" ]
+CMD [ "http-server", "dist" ]

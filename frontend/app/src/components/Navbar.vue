@@ -80,9 +80,11 @@
         if (this.colorTheme === 'dark_theme') {
           this.colorTheme = 'light_theme';
           document.documentElement.classList.remove('dark_theme');
+          document.documentElement.style.backgroundColor = '';
         } else {
           this.colorTheme = 'dark_theme';
           document.documentElement.classList.remove('light_theme');
+          document.documentElement.style.backgroundColor = '#10031d';
         }
         document.documentElement.classList.add(this.colorTheme);
         localStorage.setItem('piposintTheme', this.colorTheme);
@@ -95,6 +97,10 @@
       if (localStorage.getItem('piposintTheme')) {
         // Load the theme from local storage variable
         this.colorTheme = localStorage.getItem('piposintTheme');
+        if (this.colorTheme === 'dark_theme') {
+          document.documentElement.style.backgroundColor = '#10031d';
+        }
+
       } else {
         localStorage.setItem('piposintTheme', this.colorTheme);
       }

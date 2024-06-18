@@ -1,0 +1,59 @@
+@use '../../assets/variables';
+
+.error-popup {
+    position: fixed;
+    z-index: 100;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 80%;
+    height: 7rem;
+    background-color: #fff;
+    border: 1px solid variables.$color-light-border;
+    border-radius: 1rem;
+
+    h2 {
+        color: red;
+        font-size: 1.25rem;
+        text-align: center;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    .error-delete {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        cursor: pointer;
+    }
+
+    //transform: translateY(20%);
+
+    animation: slide-up 0.5s ease-in-out;
+
+    @keyframes slide-up {
+        0% {
+            transform: translate(-50%, 100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translate(-50%, 0%);
+            opacity: 1;
+        }
+    }
+
+}
+
+.dark_theme {
+    .error-popup {
+        background-color: variables.$color-dark-secondary;
+        border: 1px solid variables.$color-dark-border;
+    }
+
+    .error-popup-content {
+        color: white;
+    }
+}

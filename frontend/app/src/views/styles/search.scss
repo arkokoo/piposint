@@ -1,0 +1,68 @@
+@use '../../assets/variables';
+
+.container {
+    justify-content: center;
+    padding-bottom: 5rem;
+    min-height: 65vh;
+}
+
+.search-form {
+    position: relative;
+    z-index: 1;
+    max-width: 30rem;
+    margin: 50px auto 100px;
+    padding: 45px;
+    text-align: center;
+
+    .search-icon {
+        color: green;
+
+        svg {
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+
+    .search-title {
+        font-size: 2.5rem;
+        margin: 0 auto;
+        padding-bottom: 2rem;
+    }
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #0d7925;
+    color: green;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    &#bad-input {
+        color: red;
+        border-color: red;
+    }
+}
+
+
+.search-button {
+    width: 50%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #0d7925;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darkgreen;
+    }
+
+    &#bad-input {
+        background-color: gray;
+        cursor: not-allowed;
+    }
+}

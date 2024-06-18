@@ -4,43 +4,43 @@
         <li class="honeycomb-cell">
           <div class="honeycomb-cell-overlay"/>
           <div class="honeycomb-cell-inner">
-            <span class="honeycomb-cell-inner_title">Personne</span>
+            <router-link :to="'/search/person'" class="honeycomb-cell-inner_title">Personne</router-link>
         </div>
       </li>
         <li class="honeycomb-cell">
           <div class="honeycomb-cell-overlay"/>
           <div class="honeycomb-cell-inner">
-            <span class="honeycomb-cell-inner_title">Email</span>
+            <router-link :to="'/search/email'" class="honeycomb-cell-inner_title">Email</router-link>
         </div>
       </li>
         <li class="honeycomb-cell">
           <div class="honeycomb-cell-overlay"/>
           <div class="honeycomb-cell-inner">
-            <span class="honeycomb-cell-inner_title">Pseudo</span>
+            <router-link :to="'/search/username'" class="honeycomb-cell-inner_title">Pseudo</router-link>
         </div>
       </li>
         <li class="honeycomb-cell">
           <div class="honeycomb-cell-overlay"/>
           <div class="honeycomb-cell-inner">
-            <span class="honeycomb-cell-inner_title">IP</span>
+            <router-link :to="'/search/ip'" class="honeycomb-cell-inner_title">Adresse IP</router-link>
         </div>
       </li>
         <li class="honeycomb-cell">
           <div class="honeycomb-cell-overlay"/>
           <div class="honeycomb-cell-inner">
-            <span class="honeycomb-cell-inner_title">Téléphone</span>
+            <router-link :to="'/search/phone'" class="honeycomb-cell-inner_title">Téléphone</router-link>
         </div>
       </li>
         <li class="honeycomb-cell">
           <div class="honeycomb-cell-overlay"/>
           <div class="honeycomb-cell-inner">
-            <span class="honeycomb-cell-inner_title">Domaine</span>
+            <router-link :to="'/search/domain'" class="honeycomb-cell-inner_title">Domaine</router-link>
         </div>
       </li>
         <li class="honeycomb-cell">
           <div class="honeycomb-cell-overlay"/>
           <div class="honeycomb-cell-inner">
-            <span class="honeycomb-cell-inner_title">Overpass Turbo</span>
+            <a href="/services/overpass-turbo/" target="_blank" class="honeycomb-cell-inner_title">Overpass-Turbo</a>
         </div>
       </li>
     </ul>

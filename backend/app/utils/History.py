@@ -28,12 +28,6 @@ class History:
         uuid = str(uuid4())
 
         data = param_data
-
-        # if param_type == "overpass-turbo" and "service" in data:
-        #     data.pop("service")
-        #     if "query" in data and bool(re.search(r"## .+ ##", data["query"])):
-        #         query_title = data["query"].split("## ")[1].split(" ##")[0]
-        #         param_args.append(query_title)
         
         history_element = {
             "uuid": uuid,
@@ -54,7 +48,9 @@ def get_overpass_turbo_args(service_name: str, data: dict) -> list:
     """
     output_args = []
     if service_name == "overpass-turbo":
-        if "query" in data and bool(re.search(r"## .+ ##", data["query"])):
-            query_title = data["query"].split("## ")[1].split(" ##")[0]
-            output_args.append(query_title)
+        if "query" in data:
+            match = re.search(r"@name\s+(.+)\n", data["query"])
+            if match:
+                query_title = match.group(1)
+                output_args.append(query_title)
     return output_args

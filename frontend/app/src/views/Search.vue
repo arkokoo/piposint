@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { Phone, Globe, MapPin, User, X, AtSign, Drama } from 'lucide-vue-next';
+import { Phone, Globe, MapPin, User, AtSign, Drama } from 'lucide-vue-next';
 import ErrorPopup from '@/components/ErrorPopup.vue';
 import Loader from '@/components/Loader.vue';
 </script>
@@ -98,31 +98,26 @@ export default {
           }
         }
       },
-      fetchHandler(url) {
+      async fetchHandler(url) {
         this.isLoading = true;
         this.error.code = null;
         this.error.message = '';
-        fetch(url, {
-        })
-          .then(response => {
-            this.isLoading = false;
-            if (response.ok) {
-              return response.json();
-            } else {
-              this.error.code = response.status;
-              this.error.message = response.statusText;
-            }
-          })
-          .then(data => {
-            if (data) {
-              console.log(data);
-            }
-          })
-          .catch(err => {
-            this.isLoading = false;
-            this.error.code = 500;
-            this.error.message = 'Internal server error';
-          });
+        try {
+          const response = await fetch(url);
+          this.isLoading = false;
+          if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        this.$router.push({ name: 'Result', params: { data: JSON.stringify(data) } });
+          } else {
+        this.error.code = response.status;
+        this.error.message = response.statusText;
+          }
+        } catch (err) {
+          this.isLoading = false;
+          this.error.code = 500;
+          this.error.message = 'Internal server error';
+        }
       },
       checkFirstname(event) {
         const firstname = event.target.value;

@@ -10,8 +10,8 @@ RUN git clone https://github.com/tyrasd/overpass-turbo.git .
 
 COPY ./app .
 
-RUN yarn install
-RUN yarn build
+RUN npm install
+RUN npm run build
 
 # Lancer l'application
 CMD [ "http-server", "dist" ]

@@ -21,9 +21,10 @@ def get_phone():
     }
 
     output_phone = asyncio.run(get_phone_info(phone_number))
+    output_phone.pop('phone_number', None)
     phone_dict["data"].update(output_phone)
     history = History()
-    history.add_element(param_data=phone_dict, param_type="phone", param_args=[phone_number])
+    history.add_element(param_dict=phone_dict)
 
     return jsonify(phone_dict)
 

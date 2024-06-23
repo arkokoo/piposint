@@ -9,14 +9,18 @@ website = Blueprint('website', __name__)
 @website.route('/api/website',methods=['GET'])
 def get_website() :
     website = request.args.get('value')
-    website_dict = {}
+    website_dict = {
+        "type": "website",
+        "args": [website],
+        "data": {}
+    }
 
     if website == None or is_website(website) is False or WAPPALYZER_API_KEY == None or WAPPALYZER_API_KEY == "":
         abort(400)
 
-    website_dict = wappalyzer(str(website))
+    website_dict["data"] = wappalyzer(str(website))
     history = History()
-    history.add_element(param_data=website_dict, param_type="website", param_args=[website])
+    history.add_element(param_dict=website_dict)
     return jsonify(website_dict)
 
 @website.errorhandler(400)

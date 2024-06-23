@@ -12,11 +12,18 @@ def get_email():
     if email == None or is_email(email) is False:
         abort(400)
     
-    email_dict = { "email": email, "associated_domains": []}
-    email_dict["associated_domains"] = get_holehe(email)
+    email_dict = {
+        "type": "email",
+        "args" : [email],
+        "data" : {
+            "associated_domains": []
+        } 
+    }
+
+    email_dict["data"]["associated_domains"] = get_holehe(email)
 
     history = History()
-    history.add_element(param_data=email_dict, param_type="email", param_args=[email])
+    history.add_element(param_dict=email_dict)
 
     return jsonify(email_dict)
 

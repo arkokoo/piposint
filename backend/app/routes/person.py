@@ -13,15 +13,17 @@ def get_person():
         abort(400)
     
     person_dict = {
-        "firstname": firstname,
-        "lastname": lastname,
-        "gender": None,
-        "country": None
+        "type": "person",
+        "args" : [firstname, lastname],
+        "data" : {
+            "gender": None,
+            "country": None
+        }
     }
 
-    person_dict["gender"], person_dict["country"] = get_person_info(firstname, lastname)
+    person_dict["data"]["gender"], person_dict["data"]["country"] = get_person_info(firstname, lastname)
     history = History()
-    history.add_element(param_data=person_dict, param_type="person", param_args=[firstname, lastname])
+    history.add_element(param_dict=person_dict)
     return jsonify(person_dict)
 
 @person.errorhandler(400)

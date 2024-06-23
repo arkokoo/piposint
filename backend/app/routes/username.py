@@ -11,10 +11,16 @@ def get_username() :
     if username == None or username == "" :
         abort(400)
 
-    user_dict = {}
-    user_dict = get_blackbird(username)
+    user_dict = {
+        "type": "username",
+        "args": [username],
+        "data": {}
+    }
+    output_username = get_blackbird(username)
+    output_username.pop('search-params', None)
+    user_dict["data"].update(output_username)
     history = History()
-    history.add_element(param_data=user_dict, param_type="username", param_args=[username])
+    history.add_element(param_dict=user_dict)
     return jsonify(user_dict)
 
 @username.errorhandler(400)

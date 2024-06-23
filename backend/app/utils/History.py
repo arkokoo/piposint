@@ -11,7 +11,7 @@ class History:
             os.makedirs(folder_path)
         self.folder_path = folder_path
 
-    def add_element(self, param_data: dict, param_type: str, param_args: list = []):
+    def add_element(self, param_dict: dict):
         """
         Add a new element to the history collection
         example:
@@ -26,15 +26,11 @@ class History:
         }
         """
         uuid = str(uuid4())
-
-        data = param_data
         
         history_element = {
+            **param_dict,
             "uuid": uuid,
             "datetime": datetime.datetime.now().isoformat(),
-            "type": param_type,
-            "args": param_args,
-            "data": data
         }
 
         file_name = f"{uuid}.json"

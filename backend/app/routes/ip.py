@@ -11,10 +11,15 @@ def get_ip_information() :
     if search_value == None or is_ip_address(search_value) is False :
         abort(400)
 
-    ip_address_dict = {}
-    ip_address_dict = get_ip(search_value)
+    ip_address_dict = {
+        "type": "ip",
+        "args": [search_value],
+        "data": {}
+    }
+
+    ip_address_dict["data"] = get_ip(search_value)
     history = History()
-    history.add_element(param_data=ip_address_dict, param_type="ip", param_args=[search_value])
+    history.add_element(param_dict=ip_address_dict)
     return jsonify(ip_address_dict)
 
 @ip.errorhandler(400)

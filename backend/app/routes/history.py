@@ -66,7 +66,7 @@ def get_history_element(uuid):
     hist = History()
     file = glob.glob(f"{hist.folder_path}/{uuid}.json")
     if uuid == None or uuid == "" or len(file) == 0:
-        abort(400)
+        abort(404)
     with open(file[0], "r") as f:
         return jsonify(json.load(f))
 
@@ -75,13 +75,19 @@ def delete_history_element(uuid):
     hist = History()
     file = glob.glob(f"{hist.folder_path}/{uuid}.json")
     if uuid == None or id == "" or len(file) == 0:
-        abort(400)
+        abort(404)
     os.remove(file[0])
     return jsonify({"message": "History element deleted"})
 
 @history.errorhandler(400)
 def bad_request(error):
     return jsonify({"error": "Bad Request, please ensure all parameters are provided"}), 400
+
+@history.errorhandler(404)
+def bad_request(error):
+    return jsonify({"error": "History element not found"}), 404
+
+
 
 @history.errorhandler(500)
 def bad_request(error):

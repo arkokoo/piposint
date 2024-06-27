@@ -3,6 +3,7 @@ import os
 import datetime
 from uuid import uuid4
 import re
+import pytz
 
 class History:
     def __init__(self):
@@ -27,10 +28,14 @@ class History:
         """
         uuid = str(uuid4())
         
+        # Get the current time in Paris
+        paris_timezone = pytz.timezone('Europe/Paris')
+        current_time = datetime.datetime.now(paris_timezone).isoformat()
+        
         history_element = {
             **param_dict,
             "uuid": uuid,
-            "datetime": datetime.datetime.now().isoformat(),
+            "datetime": current_time,
         }
 
         file_name = f"{uuid}.json"

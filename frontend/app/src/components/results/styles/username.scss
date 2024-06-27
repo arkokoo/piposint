@@ -1,0 +1,57 @@
+@use '../../../assets/variables';
+
+.bento-username-site {
+    position: relative;
+    display: block;
+    margin: 0;
+    min-height: 10rem;
+
+    #site-picture {
+        width: 2.5rem;
+        height: 2.5rem;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding-right: 0.5rem;
+        padding-top: 0.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding-left: 0.5rem;
+        padding-top: 1rem;
+    }
+
+    #profile-picture {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 25%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &:hover {
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        transform: scale(1.025);
+        box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+    }
+}
+
+.bento-grid-username {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+
+.dark_theme .bento-username-site {
+    &:hover {
+        box-shadow: 0 0 1rem rgba(255, 255, 255, 0.1);
+    }
+}

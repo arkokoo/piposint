@@ -15,7 +15,7 @@
                 </li>
             </ul>
         </div>
-        <div class="history-message" v-if="error">{{ error }}</div>
+        <div class="history-message" v-if="error_message">{{ error_message }}</div>
         <div class="history-message" v-else-if="Object.keys(history).length === 0">Aucune donnée à afficher.</div>
         <div v-else class="history-yearbox" v-for="(year, yearIndex) in Object.keys(history).sort((a, b) => Number(b) - Number(a))" :key="yearIndex">
             <h1 v-if="yearIndex !== 0" class="year-separator">{{ year }}</h1>
@@ -55,6 +55,7 @@
 <script setup>
     import { Phone, Globe, MapPin, User, MapPinned, X, AtSign, Drama, RefreshCw, Download, Import, Eraser } from 'lucide-vue-next';
     import { fetchHistory } from '@/components/functions/fetchHistory';
+    import { fetchHandler } from '@/components/functions/fetchHandler';
 </script>
 
 <script>
@@ -64,8 +65,12 @@
             return {
                 items: [],
                 history: {},
+                error: {
+                    code: null,
+                    message: ''
+                },
                 filterId: 0,
-                error: null,
+                error_message: null,
                 history_filters_name: [
                     "Tous",
                     "Personne",
@@ -104,17 +109,18 @@
                 if (param_type === 'overpass-turbo') {
                     this.fetchOverpassData(param_uuid);
                 } else {
-                    console.log("not implemented yet");
+                    fetchHandler("/api/history/" + param_uuid, this);
                 }
+                this.$emit('closeHistory');
             },
             fetchOverpassData(param_uuid) {
                 fetch(`/api/history/${param_uuid}`)
                     .then((response) => response.json())
                     .then((data) => {
-                        window.open(data.data.url, '_blank');
+                        window.open("" + data.data.url, '_blank');
                     })
                     .catch((error) => {
-                        console.error('Error:', error);
+                        console.error('Error:', error);                        
                     });
             },
             deleteItem(param_uuid) {
@@ -130,7 +136,6 @@
                     });
             },
             deleteHistory(){
-                // Js popup to confirm the deletion
                 if (!confirm("Voulez-vous vraiment supprimer tout l'historique ?")) {
                     return;
                 }

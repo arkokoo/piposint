@@ -56,9 +56,15 @@ def add_history_element():
     service_name = data["service"]
     data.pop("service")
 
-    service_args = get_overpass_turbo_args(service_name, data)
+    service_dict = {
+        "type": service_name,
+        "args": [],
+        "data": data
+    }
 
-    hist.add_element(param_data=data, param_type=service_name, param_args=service_args)
+    service_dict["args"] = get_overpass_turbo_args(service_name, data)
+
+    hist.add_element(param_dict=service_dict)
     return jsonify({"message": "History element added"})
 
 @history.route('/api/history/<uuid>', methods=['GET'])
@@ -86,8 +92,6 @@ def bad_request(error):
 @history.errorhandler(404)
 def bad_request(error):
     return jsonify({"error": "History element not found"}), 404
-
-
 
 @history.errorhandler(500)
 def bad_request(error):

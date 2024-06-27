@@ -44,7 +44,7 @@
         </li>
       </ul>
     </nav>
-    <TheHistory v-if="isHistoryOpen" v-click-outside="openHistory"/>
+    <TheHistory v-if="isHistoryOpen" @closeHistory="handleCloseHistory" v-click-outside="openHistory" />
   </header>
 </template>
 
@@ -91,6 +91,9 @@
       },
       openHistory() {
         this.isHistoryOpen = !this.isHistoryOpen;
+      },
+      handleCloseHistory() {
+        this.isHistoryOpen = false;
       },
     },
     mounted() {

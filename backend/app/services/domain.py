@@ -4,7 +4,7 @@ from flask import abort
 
 def hunter(domain: str)-> dict:
     json_data = {}
-    url = f"https://api.hunter.io/v2/domain-search?domain={domain}&api_key={HUNTER_API_KEY}"
+    url = f"https://api.hunter.io/v2/domain-search?domain={domain}&api_key={HUNTER_API_KEY}&limit=100"
     print(url)
     response = Requester(url=url).get()
     if response and response.status_code == 200:

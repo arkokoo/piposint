@@ -7,6 +7,49 @@ phone = Blueprint('phone', __name__)
 
 @phone.route('/api/phone', methods=['GET'])
 def get_phone():
+    """
+    Retourne les informations d'un numéro de téléphone.
+    ---
+    tags:
+      - Services
+    parameters:
+      - name: value
+        in: query
+        type: string
+        required: true
+        description: Numéro de téléphone à rechercher
+    definitions:
+      Phone:
+        type: object
+        properties:
+          type:
+            type: string
+          args:
+            type: array
+            items:
+              type: string
+          data:
+            type: object
+            properties:
+              country:
+                type: string
+              location:
+                type: string
+              carrier:
+                type: string
+              line_type:
+                type: string
+    responses:
+      200:
+        description: Informations du numéro de téléphone
+        schema:
+          $ref: '#/definitions/Phone'
+      400:
+        description: Bad Request, please ensure all parameters are provided
+      500:
+        description: Internal Server Error
+    """
+
     phone_number = request.args.get('value')
 
     if phone_number == None:

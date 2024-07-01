@@ -6,6 +6,55 @@ username = Blueprint('username', __name__)
 
 @username.route('/api/username',methods=['GET'])
 def get_username() :
+    """
+    Retourne les informations d'un nom d'utilisateur.
+    ---
+    tags:
+      - Services
+    parameters:
+      - name: value
+        in: query
+        type: string
+        required: true
+        description: Nom d'utilisateur à rechercher
+    definitions:
+      Username:
+        type: object
+        properties:
+          type:
+            type: string
+          args:
+            type: array
+            items:
+              type: string
+          data:
+            type: object
+            properties:
+              sites:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    app:
+                      type: string
+                    metadata:
+                      type: array
+                      items:
+                        type: string
+                    url:
+                      type: string
+    responses:
+      200:
+        description: Informations du nom d'utilisateur
+        schema:
+          $ref: '#/definitions/Username'
+      400:
+        description: Bad Request, please ensure all parameters are provided
+      500:
+        description: Internal Server Error
+    """
+
+
     username = request.args.get('value')
 
     if username == None or username == "" :

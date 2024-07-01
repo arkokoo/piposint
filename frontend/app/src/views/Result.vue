@@ -10,8 +10,8 @@
             <Globe v-if="responseData.type === 'domain'" />
           </div>
           <h1 class="result-title">{{ result_types[responseData.type] }}</h1>
-          <h2 class="result-args">{{ responseData.args.join(', ') }}</h2>
-          <p class="result-description" v-if="responseData.datetime" >{{ formatDatetime(responseData.datetime) }}</p>
+          <h2 class="result-args">{{ responseData.args.join(' ') }}</h2>
+          <p class="result-description" v-if="responseData.datetime">{{ formatDatetime(responseData.datetime) }}</p>
         </div>
         <BentoPerson v-if="responseData.type === 'person'" :responseData="responseData" />
         <BentoEmail v-if="responseData.type === 'email'" :responseData="responseData" />
@@ -38,7 +38,7 @@ export default {
     '$route.params.data': {
       immediate: true,
       handler(newData) {
-       this.responseData = JSON.parse(newData);
+        this.responseData = JSON.parse(decodeURIComponent(atob(newData)));
       },
     },
   },
@@ -56,7 +56,7 @@ export default {
     };
   },
   created() {
-    this.responseData = JSON.parse(this.$route.params.data);
+    this.responseData = JSON.parse(decodeURIComponent(atob(this.$route.params.data)));
   },
   methods: {
     formatDatetime(datetime) {

@@ -12,9 +12,22 @@
             <div class="bento-item bento-person-dorks">
                 <h3>Google Dorks</h3>
                 <div class="bento-content">
+                    <ul>
+                        <li><a :href="`https://www.google.com/search?q=${ '&quot;' + responseData.args[0]} ${responseData.args[1] + '&quot;'}`" target="_blank">Nom complet</a></li>
+                        <li><a :href="`https://www.google.com/search?q=${ '&quot;' + responseData.args[0] + ' ' + responseData.args[1] + '&quot; site:facebook.com'}`" target="_blank">Facebook</a></li>
+                        <li><a :href="`https://www.google.com/search?q=${ '&quot;' + responseData.args[0] + ' ' + responseData.args[1] + '&quot; site:linkedin.com'}`" target="_blank">LinkedIn</a></li>
+                        <li><a :href="`https://www.google.com/search?q=${ '&quot;' + responseData.args[0] + ' ' + responseData.args[1] + '&quot; site:twitter.com'}`" target="_blank">Twitter</a></li>
+                        <li><a :href="`https://www.google.com/search?q=${ '&quot;' + responseData.args[0] + ' ' + responseData.args[1] + '&quot; site:instagram.com'}`" target="_blank">Instagram</a></li>
+                    </ul>
                 </div>
             </div>
          </div>
+         <div class="bento-item bento-person-webmii">
+            <h3>Webmii</h3>
+            <div class="bento-content">
+                <iframe :src="getWebMiiUrl()"></iframe>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -64,6 +77,11 @@
                         }
                     ]
                 };
+            },
+            getWebMiiUrl() {
+                const firstName = encodeURIComponent(this.responseData.args[0]);
+                const lastName = encodeURIComponent(this.responseData.args[1]);
+                return `https://webmii.com/people?n=%22${firstName}%20${lastName}%22#gsc.tab=0&gsc.q=%22${firstName}%20${lastName}%22&gsc.sort=date`;
             }
         },
         computed: {

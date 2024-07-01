@@ -6,6 +6,51 @@ person = Blueprint('person', __name__)
 
 @person.route('/api/person', methods=['GET'])
 def get_person():
+    """
+    Retourne les informations d'une personne à partir de son prénom et son nom de famille.
+    ---
+    tags:
+      - Services
+    parameters:
+      - name: firstname
+        in: query
+        type: string
+        required: true
+        description: Prénom de la personne
+      - name: lastname
+        in: query
+        type: string
+        required: true
+        description: Nom de famille de la personne
+    definitions:
+      Person:
+        type: object
+        properties:
+          type:
+            type: string
+          args:
+            type: array
+            items:
+              type: string
+          data:
+            type: object
+            properties:
+              gender:
+                type: object
+              country:
+                type: object
+    responses:
+      200:
+        description: Informations de la personne
+        schema:
+          $ref: '#/definitions/Person'
+      400:
+        description: Bad Request, please ensure all parameters are provided
+      500:
+        description: Internal Server Error
+    """
+
+
     firstname = request.args.get('firstname')
     lastname = request.args.get('lastname')
 

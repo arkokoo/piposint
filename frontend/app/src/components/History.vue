@@ -30,7 +30,7 @@
                         <div class="item-box" @click="fetchItem(item.type, item.uuid)">
                             <div class="item-infos">
                                 <ul class="item-args">
-                                    <li v-for="(arg, index) in item.args" :key="index">{{ arg }}{{ index !== item.args.length - 1 ? ',' : '' }}</li>
+                                    <li v-for="(arg, index) in item.args" :key="index">{{ arg }}</li>
                                 </ul>
                                 <span id="item-hours">{{ item.hours }}</span>
                             </div>

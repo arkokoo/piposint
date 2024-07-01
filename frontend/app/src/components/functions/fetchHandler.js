@@ -7,10 +7,10 @@ async function fetchHandler(url, vueContext) {
         const data = await response.json();
         // SI on est deja dans result, on remplace les données
         if (vueContext.$route.name === 'Result') {
-            vueContext.$router.replace({ name: 'Result', params: { data: JSON.stringify(data) } });
+            vueContext.$router.replace({ name: 'Result', params: { data: btoa(encodeURIComponent(JSON.stringify(data))) } });
         }
         else {
-            vueContext.$router.push({ name: 'Result', params: { data: JSON.stringify(data) } });
+            vueContext.$router.push({ name: 'Result', params: { data: btoa(encodeURIComponent(JSON.stringify(data))) } });
         }
       } else {
         vueContext.error.code = response.status;
@@ -18,6 +18,7 @@ async function fetchHandler(url, vueContext) {
       }
     } catch (err) {
       vueContext.error.code = 500;
+      console.error(err);
       vueContext.error.message = 'Internal server error';
     }
   }

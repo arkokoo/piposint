@@ -6,6 +6,51 @@ person = Blueprint('person', __name__)
 
 @person.route('/api/person', methods=['GET'])
 def get_person():
+    """
+    Retourne les informations d'une personne à partir de son prénom et son nom de famille.
+    ---
+    tags:
+      - Services
+    parameters:
+      - name: firstname
+        in: query
+        type: string
+        required: true
+        description: Prénom de la personne
+      - name: lastname
+        in: query
+        type: string
+        required: true
+        description: Nom de famille de la personne
+    definitions:
+      Person:
+        type: object
+        properties:
+          type:
+            type: string
+          args:
+            type: array
+            items:
+              type: string
+          data:
+            type: object
+            properties:
+              gender:
+                type: object
+              country:
+                type: object
+    responses:
+      200:
+        description: Informations de la personne
+        schema:
+          $ref: '#/definitions/Person'
+      400:
+        description: Bad Request, please ensure all parameters are provided
+      500:
+        description: Internal Server Error
+    """
+
+
     firstname = request.args.get('firstname')
     lastname = request.args.get('lastname')
 
@@ -13,15 +58,17 @@ def get_person():
         abort(400)
     
     person_dict = {
-        "firstname": firstname,
-        "lastname": lastname,
-        "gender": None,
-        "country": None
+        "type": "person",
+        "args" : [firstname, lastname],
+        "data" : {
+            "gender": None,
+            "country": None
+        }
     }
 
-    person_dict["gender"], person_dict["country"] = get_person_info(firstname, lastname)
+    person_dict["data"]["gender"], person_dict["data"]["country"] = get_person_info(firstname, lastname)
     history = History()
-    history.add_element(param_data=person_dict, param_type="person", param_args=[firstname, lastname])
+    history.add_element(param_dict=person_dict)
     return jsonify(person_dict)
 
 @person.errorhandler(400)

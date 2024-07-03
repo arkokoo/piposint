@@ -4,11 +4,13 @@ from app.routes.phone import phone
 from app.routes.username import username
 from app.routes.ip import ip
 from app.routes.domain import domain
-from app.routes.website import website
 from app.routes.history import history
+from app.routes.swagger import swagger
 from app.utils.vars import *
 from flask import Flask
 from flask_cors import CORS
+from flasgger import Swagger
+import yaml
 
 def create_app():
     app = Flask(__name__)
@@ -19,11 +21,15 @@ def create_app():
     app.register_blueprint(username)
     app.register_blueprint(ip)
     app.register_blueprint(domain)
-    app.register_blueprint(website)
     app.register_blueprint(history)
+    app.register_blueprint(swagger)
     return app
 
+with open('swagger_template.yml', 'r', encoding='utf-8') as file:
+    template = yaml.safe_load(file)
+
 app = create_app()
+swag = Swagger(app, template=template)
 
 if __name__ == "__main__":
     # Dev : Démarrer le backend avec "python run.py"

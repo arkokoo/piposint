@@ -9,6 +9,49 @@ history = Blueprint('history', __name__)
 
 @history.route('/api/history', methods=['GET'])
 def get_history():
+    """
+    Retourne l'historique de toutes les requêtes effectuées.
+    ---
+    tags:
+      - History
+    definitions:
+      History:
+        type: object
+        properties:
+          Year:
+            type: object
+            properties:
+              Month:
+                type: object
+                properties:
+                  Day:
+                    type: array
+                    items:
+                      $ref: '#/definitions/HistoryElement'
+      HistoryElement:
+        type: object
+        properties:
+          args:
+            type: array
+            items:
+              type: string
+          datetime:
+            type: string
+          uuid:
+            type: string
+          type:
+            type: string
+          data:
+            type: object
+    responses:
+      200:
+        description: Historique des requêtes effectuées
+        schema:
+          $ref: '#/definitions/History'
+      500:
+        description: Internal Server Error
+    """
+
     history = {}
 
     hist = History()
@@ -39,6 +82,18 @@ def get_history():
 
 @history.route('/api/history', methods=['DELETE'])
 def clear_history():
+    """
+    Supprime l'historique de toutes les requêtes effectuées.
+    ---
+    tags:
+      - History
+    responses:
+        200:
+            description: History cleared
+        500:
+            description: Internal Server Error
+    """
+
     hist = History()
     files = glob.glob(f"{hist.folder_path}/*.json")
     for file in files:
@@ -48,6 +103,31 @@ def clear_history():
 
 @history.route('/api/history', methods=['POST'])
 def add_history_element():
+    """
+    Ajoute une requête à l'historique.
+    ---
+    tags:
+      - History
+    parameters:
+        - name: service
+          in: body
+          type: string
+          required: true
+          description: Nom du service
+        - name: data
+          in: body
+          type: object
+          required: true
+          description: Paramètres de la requête
+    responses:
+        200:
+            description: History element added
+        400:
+            description: Bad Request, please ensure all parameters are provided
+        500:
+            description: Internal Server Error
+    """
+
     hist = History()
     data = request.json
     if data is None:
@@ -56,32 +136,82 @@ def add_history_element():
     service_name = data["service"]
     data.pop("service")
 
-    service_args = get_overpass_turbo_args(service_name, data)
+    service_dict = {
+        "type": service_name,
+        "args": [],
+        "data": data
+    }
 
-    hist.add_element(param_data=data, param_type=service_name, param_args=service_args)
+    service_dict["args"] = get_overpass_turbo_args(service_name, data)
+
+    hist.add_element(param_dict=service_dict)
     return jsonify({"message": "History element added"})
 
 @history.route('/api/history/<uuid>', methods=['GET'])
 def get_history_element(uuid):
+    """
+    Retourne un élément de l'historique.
+    ---
+    tags:
+      - History
+    parameters:
+        - name: uuid
+          in: path
+          type: string
+          required: true
+          description: UUID de la requête
+    responses:
+        200:
+            description: Contenu de l'élément de l'historique
+            schema:
+                $ref: '#/definitions/HistoryElement'
+        500:
+            description: Internal Server Error
+    """
+
     hist = History()
     file = glob.glob(f"{hist.folder_path}/{uuid}.json")
     if uuid == None or uuid == "" or len(file) == 0:
-        abort(400)
+        abort(404)
     with open(file[0], "r") as f:
         return jsonify(json.load(f))
 
 @history.route('/api/history/<uuid>', methods=['DELETE'])
 def delete_history_element(uuid):
+    """
+    Supprime un élément de l'historique.
+    ---
+    tags:
+      - History
+    parameters:
+        - name: uuid
+          in: path
+          type: string
+          required: true
+          description: UUID de la requête
+    responses:
+        200:
+            description: History element deleted
+        404:
+            description: History element not found
+        500:
+            description: Internal Server Error
+    """
+
     hist = History()
     file = glob.glob(f"{hist.folder_path}/{uuid}.json")
     if uuid == None or id == "" or len(file) == 0:
-        abort(400)
+        abort(404)
     os.remove(file[0])
     return jsonify({"message": "History element deleted"})
 
 @history.errorhandler(400)
 def bad_request(error):
     return jsonify({"error": "Bad Request, please ensure all parameters are provided"}), 400
+
+@history.errorhandler(404)
+def bad_request(error):
+    return jsonify({"error": "History element not found"}), 404
 
 @history.errorhandler(500)
 def bad_request(error):

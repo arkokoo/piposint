@@ -1,0 +1,51 @@
+@use '../../../assets/variables';
+
+.bento-domain-contact {
+
+    .bento-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.bento-content-infos {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    color: gray;
+}
+
+.bento-domain-stack {
+    ul {
+        list-style-type: none;
+        display: flex;
+        justify-content: center;
+        padding: 0;
+        gap: 1rem;
+    }
+}
+
+#bento-email-name {
+    padding-top: 1rem;
+    text-align: center;
+    font-size: 1.25rem;
+}
+
+.bento-grid-domain {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+
+    .bento-domain-email {
+        h3 {
+            font-size: 1.1rem;
+            // Coupe le texte si trop long
+            overflow: hidden;
+        }
+    }
+}

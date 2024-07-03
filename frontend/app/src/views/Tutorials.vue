@@ -1,7 +1,7 @@
 <template>
     <section class="container">
       <div>
-        <h1>Bienvenue sur ce début de tutoriels</h1>
+        <h1>Pour toute question relative à l'utilisation de l'API de l'outil, veuillez consulter <a href="/api/">ce lien</a>.</h1>
       </div>        
     </section>
   </template>  

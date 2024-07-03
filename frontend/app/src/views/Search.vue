@@ -16,7 +16,7 @@
       <input type="text" name="search-ip" :placeholder="placeholders.ip" @keyup.enter="sendSearch" v-if="query === 'ip'" @input="checkIpAddress" :id="param_1.is_valid === false ? 'bad-input' : ''"/>
       <input type="text" name="search-phone" :placeholder="placeholders.phone" @keyup.enter="sendSearch" v-if="query === 'phone'" @input="checkPhone" :id="param_1.is_valid === false ? 'bad-input' : ''"/>
       <input type="text" name="search-username" :placeholder="placeholders.username" @keyup.enter="sendSearch" v-if="query === 'username'" @input="checkUsername" :id="param_1.is_valid === false ? 'bad-input' : ''"/>
-      <input type="text" name="search-domain" :placeholder="placeholders.domain" @keyup.enter="sendSearch" v-if="query === 'domain'"/>
+      <input type="text" name="search-domain" :placeholder="placeholders.domain" @keyup.enter="sendSearch" v-if="query === 'domain'" @input="checkDomain" :id="param_1.is_valid === false ? 'bad-input' : ''"/>
       <input type="text" name="search-firstname" :placeholder="placeholders.firstname" @keyup.enter="sendSearch" v-if="query === 'person'" @input="checkFirstname" :id="param_1.is_valid === false ? 'bad-input' : ''"/>
       <input type="text" name="search-lastname" :placeholder="placeholders.lastname" @keyup.enter="sendSearch" v-if="query === 'person'" @input="checkLastname" :id="param_2.is_valid === false ? 'bad-input' : ''"/>
       <button class="search-button" @click="sendSearch" :id="param_1.is_valid && (query !== 'person' || (query === 'person' && param_2.is_valid)) ? '' : 'bad-input'">
@@ -27,7 +27,8 @@
 </template>
 
 <script setup>
-import { Phone, Globe, MapPin, User, X, AtSign, Drama } from 'lucide-vue-next';
+import { Phone, Globe, MapPin, User, AtSign, Drama } from 'lucide-vue-next';
+import { fetchHandler } from '@/components/functions/fetchHandler';
 import ErrorPopup from '@/components/ErrorPopup.vue';
 import Loader from '@/components/Loader.vue';
 </script>
@@ -78,51 +79,30 @@ export default {
         if (this.param_1.is_valid && (this.query !== 'person' || (this.query === 'person' && this.param_2.is_valid))) {
           switch (this.query) {
             case 'person':
-              this.fetchHandler(`/api/person?firstname=${this.param_1.value}&lastname=${this.param_2.value}`);
+              this.callFetchHandler(`/api/person?firstname=${this.param_1.value}&lastname=${this.param_2.value}`);
               break;
             case 'ip':
-              this.fetchHandler(`/api/ip?value=${this.param_1.value}`);
+              this.callFetchHandler(`/api/ip?value=${this.param_1.value}`);
               break;
             case 'phone':
-              this.fetchHandler(`/api/phone?value=${this.param_1.value}`);
+              this.callFetchHandler(`/api/phone?value=${this.param_1.value}`);
               break;
             case 'username':
-              this.fetchHandler(`/api/username?value=${this.param_1.value}`);
+              this.callFetchHandler(`/api/username?value=${this.param_1.value}`);
               break;
             case 'email':
-              this.fetchHandler(`/api/email?value=${this.param_1.value}`);
+              this.callFetchHandler(`/api/email?value=${this.param_1.value}`);
               break;
             case 'domain':
-              this.fetchHandler(`/api/domain?value=${this.param_1.value}`);
+              this.callFetchHandler(`/api/domain?value=${this.param_1.value}`);
               break;
           }
         }
       },
-      fetchHandler(url) {
+      async callFetchHandler(url) {
         this.isLoading = true;
-        this.error.code = null;
-        this.error.message = '';
-        fetch(url, {
-        })
-          .then(response => {
-            this.isLoading = false;
-            if (response.ok) {
-              return response.json();
-            } else {
-              this.error.code = response.status;
-              this.error.message = response.statusText;
-            }
-          })
-          .then(data => {
-            if (data) {
-              console.log(data);
-            }
-          })
-          .catch(err => {
-            this.isLoading = false;
-            this.error.code = 500;
-            this.error.message = 'Internal server error';
-          });
+        await fetchHandler(url, this);
+        this.isLoading = false;
       },
       checkFirstname(event) {
         const firstname = event.target.value;
@@ -169,6 +149,13 @@ export default {
         this.param_1.value = email;
         this.param_1.is_valid = emailRegex.test(email);
       },
+      checkDomain(event) {
+        const domain = event.target.value;
+        const domainRegex = /[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/;
+
+        this.param_1.value = domain;
+        this.param_1.is_valid = domainRegex.test(domain);
+      }
   },
 };
 </script>

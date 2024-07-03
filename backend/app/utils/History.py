@@ -3,6 +3,7 @@ import os
 import datetime
 from uuid import uuid4
 import re
+import pytz
 
 class History:
     def __init__(self):
@@ -11,7 +12,7 @@ class History:
             os.makedirs(folder_path)
         self.folder_path = folder_path
 
-    def add_element(self, param_data: dict, param_type: str, param_args: list = []):
+    def add_element(self, param_dict: dict):
         """
         Add a new element to the history collection
         example:
@@ -26,21 +27,15 @@ class History:
         }
         """
         uuid = str(uuid4())
-
-        data = param_data
-
-        # if param_type == "overpass-turbo" and "service" in data:
-        #     data.pop("service")
-        #     if "query" in data and bool(re.search(r"## .+ ##", data["query"])):
-        #         query_title = data["query"].split("## ")[1].split(" ##")[0]
-        #         param_args.append(query_title)
+        
+        # Get the current time in Paris
+        paris_timezone = pytz.timezone('Europe/Paris')
+        current_time = datetime.datetime.now(paris_timezone).isoformat()
         
         history_element = {
+            **param_dict,
             "uuid": uuid,
-            "datetime": datetime.datetime.now().isoformat(),
-            "type": param_type,
-            "args": param_args,
-            "data": data
+            "datetime": current_time,
         }
 
         file_name = f"{uuid}.json"
@@ -54,7 +49,9 @@ def get_overpass_turbo_args(service_name: str, data: dict) -> list:
     """
     output_args = []
     if service_name == "overpass-turbo":
-        if "query" in data and bool(re.search(r"## .+ ##", data["query"])):
-            query_title = data["query"].split("## ")[1].split(" ##")[0]
-            output_args.append(query_title)
+        if "query" in data:
+            match = re.search(r"@name\s+(.+)\n", data["query"])
+            if match:
+                query_title = match.group(1)
+                output_args.append(query_title)
     return output_args

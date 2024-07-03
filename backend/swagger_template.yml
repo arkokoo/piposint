@@ -1,0 +1,8 @@
+swagger: "2.0"
+info:
+  title: "pipOSINT API"
+  version: "1.0"
+  description: |
+    API pour la recherche d'informations sur une personne, un email, un numéro de téléphone, un nom d'utilisateur, une adresse IP ou un domaine.
+schemes:
+  - "https"
